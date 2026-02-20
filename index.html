@@ -460,43 +460,37 @@ footer::before{content:'';position:absolute;top:-80px;left:50%;transform:transla
   footer{padding:40px 16px 24px}
 }
 
-/* ── HAMBURGER MENU ── */
-.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:8px;z-index:300}
+/* ── HAMBURGER & MOBILE MENU ── */
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:8px;z-index:10000;position:relative}
 .hamburger span{display:block;width:24px;height:2px;background:var(--ink);border-radius:2px;transition:all .3s}
+.mob-menu{
+  display:none;position:fixed;top:0;right:0;bottom:0;
+  width:min(280px,80vw);background:var(--white);
+  padding:0 32px 40px;
+  box-shadow:-10px 0 40px rgba(0,0,0,.15);
+  z-index:9999;overflow-y:auto;
+  transform:translateX(100%);transition:transform .3s ease;
+}
+.mob-menu.open{display:block;transform:translateX(0);animation:slideIn .3s ease}
+.mob-menu::before{content:'';display:block;height:80px;flex-shrink:0}
+.mob-menu-links{list-style:none;padding:0;margin:0}
+.mob-menu-links li a{
+  display:block;font-size:16px;font-weight:500;color:var(--ink);opacity:.8;
+  padding:14px 0;border-bottom:1px solid var(--border);
+  text-decoration:none;transition:opacity .2s;
+}
+.mob-menu-links li a:hover{opacity:1}
+.mob-menu-btn{
+  margin-top:20px;text-align:center;border-bottom:none!important;
+  background:linear-gradient(135deg,var(--blue),var(--cyan));color:#fff!important;
+  opacity:1!important;padding:14px 24px!important;border-radius:100px;
+  font-weight:600;box-shadow:0 4px 18px rgba(0,119,200,.3);
+}
+.mob-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:9998;-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
+.mob-overlay.open{display:block}
 @media(max-width:700px){
   .hamburger{display:flex}
-  .nav-links.open{
-    display:flex!important;flex-direction:column;
-    position:fixed!important;top:0;right:0;bottom:0;left:auto!important;
-    transform:none!important;
-    width:min(280px,80vw);background:var(--white);
-    padding:0 32px 40px;gap:0;
-    box-shadow:-10px 0 40px rgba(0,0,0,.15);
-    z-index:250;
-    animation:slideIn .3s ease;
-    overflow-y:auto;
-  }
-  .nav-links.open::before{
-    content:'';display:block;height:80px;flex-shrink:0;
-  }
-  .nav-links.open li{list-style:none}
-  .nav-links.open a,
-  .nav-links.open a:link,
-  .nav-links.open a:visited,
-  nav:not(.scrolled) .nav-links.open a{
-    display:block;font-size:16px;font-weight:500;color:var(--ink)!important;opacity:.8;
-    padding:14px 0;border-bottom:1px solid var(--border);
-    text-decoration:none;transition:opacity .2s;
-  }
-  .nav-links.open a:hover{opacity:1}
-  .nav-links.open .nav-btn{
-    margin-top:20px;text-align:center;border-bottom:none;
-    background:linear-gradient(135deg,var(--blue),var(--cyan));color:#fff!important;
-    opacity:1!important;padding:14px 24px;border-radius:100px;
-    font-weight:600;box-shadow:0 4px 18px rgba(0,119,200,.3);
-  }
-  .mob-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:240;-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
-  .mob-overlay.open{display:block}
+  .nav-links{display:none}
   .hamburger.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
   .hamburger.active span:nth-child(2){opacity:0}
   .hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
@@ -525,8 +519,17 @@ footer::before{content:'';position:absolute;top:-80px;left:50%;transform:transla
   <button class="hamburger" id="hamburger" aria-label="Menu">
     <span></span><span></span><span></span>
   </button>
-  <div class="mob-overlay" id="mobOverlay"></div>
-</nav>
+  </nav>
+<div class="mob-overlay" id="mobOverlay"></div>
+<div class="mob-menu" id="mobMenu">
+  <ul class="mob-menu-links">
+    <li><a href="index.html">Start</a></li>
+    <li><a href="leistungen.html">Leistungen</a></li>
+    <li><a href="ablauf.html">Ablauf</a></li>
+    <li><a href="referenzen.html">Referenzen</a></li>
+    <li><a href="kontakt.html" class="mob-menu-btn">Anfrage stellen</a></li>
+  </ul>
+</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -768,18 +771,20 @@ window.addEventListener('scroll', () => {
 
 // Hamburger Menu
 const hamburger = document.getElementById('hamburger');
-const navLinks = document.getElementById('navLinks');
+const mobMenu = document.getElementById('mobMenu');
 const mobOverlay = document.getElementById('mobOverlay');
 if(hamburger){
   hamburger.addEventListener('click', () => {
     hamburger.classList.toggle('active');
-    navLinks.classList.toggle('open');
+    mobMenu.classList.toggle('open');
     mobOverlay.classList.toggle('open');
+    document.body.style.overflow = mobMenu.classList.contains('open') ? 'hidden' : '';
   });
   mobOverlay.addEventListener('click', () => {
     hamburger.classList.remove('active');
-    navLinks.classList.remove('open');
+    mobMenu.classList.remove('open');
     mobOverlay.classList.remove('open');
+    document.body.style.overflow = '';
   });
 }
 </script>
