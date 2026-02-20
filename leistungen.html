@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leistungen – Klimatechnik Völker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+
+:root{
+  --sky:#e8f4fb;--sky2:#d4ecf7;--white:#ffffff;
+  --blue:#0077c8;--blue2:#005fa3;--cyan:#00b4e0;
+  --warm:#ff6b35;--warm2:#e55a28;
+  --ink:#0d1f36;--ink2:#1a3050;--muted:#7a95ad;
+  --border:rgba(0,119,200,0.12);
+  --shadow:0 20px 60px rgba(0,100,180,0.10);
+}
+
+body{font-family:'Outfit',sans-serif;background:var(--white);color:var(--ink);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--sky)}
+::-webkit-scrollbar-thumb{background:var(--blue);border-radius:2px}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  padding:24px 64px;
+  display:flex;justify-content:space-between;align-items:center;
+  transition:all .5s cubic-bezier(.25,.46,.45,.94);
+}
+nav.scrolled{
+  padding:16px 64px;
+  background:rgba(255,255,255,.9);
+  backdrop-filter:blur(20px);
+  box-shadow:0 1px 0 var(--border),var(--shadow);
+}
+.logo img{height:64px}
+.nav-links{position:absolute;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:36px;list-style:none}
+.nav-links a{color:var(--ink);text-decoration:none;font-size:14px;font-weight:500;opacity:.65;transition:opacity .3s}
+.nav-links a:hover,.nav-links a.active{opacity:1}
+.nav-btn{
+  background:var(--blue);color:#fff!important;opacity:1!important;
+  padding:11px 26px;border-radius:100px;font-weight:600!important;
+  box-shadow:0 4px 18px rgba(0,119,200,.3);
+  transition:background .3s,transform .2s,box-shadow .3s!important;
+}
+.nav-btn:hover{background:var(--blue2)!important;transform:translateY(-1px);box-shadow:0 8px 28px rgba(0,119,200,.35)!important}
+
+.nav-phone{
+  display:flex;align-items:center;gap:10px;
+  background:var(--white);margin-left:auto;
+  padding:8px 22px 8px 8px;border-radius:100px;
+  text-decoration:none;color:var(--ink);
+  font-size:14px;font-weight:600;letter-spacing:.02em;
+  box-shadow:0 0 0 3px var(--blue),0 4px 18px rgba(0,119,200,.15);
+  transition:transform .2s,box-shadow .3s;
+  white-space:nowrap;z-index:10;
+}
+.nav-phone:hover{transform:translateY(-1px);box-shadow:0 0 0 3px var(--blue2),0 8px 28px rgba(0,119,200,.25)}
+.nav-phone-ico{
+  width:36px;height:36px;border-radius:50%;
+  background:linear-gradient(135deg,var(--blue),var(--cyan));
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.nav-phone-ico svg{width:16px;height:16px}
+
+/* ── HAMBURGER ── */
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:8px;z-index:300}
+.hamburger span{display:block;width:24px;height:2px;background:var(--ink);border-radius:2px;transition:all .3s}
+.mob-overlay{display:none}
+
+/* ── PAGE HERO ── */
+.page-hero{
+  min-height:50vh;position:relative;overflow:hidden;
+  display:flex;align-items:center;
+  background:linear-gradient(160deg,var(--white) 0%,var(--sky) 55%,var(--sky2) 100%);
+  padding:160px 64px 80px;
+}
+.orb{position:absolute;border-radius:50%;pointer-events:none}
+.orb1{width:500px;height:500px;background:radial-gradient(circle,rgba(0,180,224,.12) 0%,transparent 70%);top:-150px;right:-100px}
+.orb2{width:350px;height:350px;background:radial-gradient(circle,rgba(0,119,200,.08) 0%,transparent 70%);bottom:-80px;left:-60px}
+.page-hero-inner{max-width:1320px;margin:0 auto;width:100%;position:relative;z-index:2;text-align:center}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--blue);margin-bottom:22px}
+.eyebrow-bar{width:28px;height:2px;background:linear-gradient(to right,var(--cyan),var(--blue));border-radius:1px}
+.page-h1{font-family:'Playfair Display',serif;font-size:clamp(42px,5vw,72px);font-weight:700;line-height:1.1}
+.page-h1 em{color:var(--blue);font-style:italic}
+.page-desc{font-size:17px;font-weight:300;color:var(--muted);line-height:1.8;max-width:600px;margin:20px auto 0}
+.hero-wave{position:absolute;bottom:-2px;left:0;right:0;pointer-events:none;z-index:3}
+
+/* ── SERVICE DETAIL BLOCKS ── */
+.svc-detail{padding:100px 64px;position:relative;overflow:hidden}
+.svc-detail:nth-child(even){background:linear-gradient(180deg,#f8fbfd 0%,#f2f8fc 100%)}
+.svc-detail-in{max-width:1320px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.svc-detail:nth-child(even) .svc-detail-in{direction:rtl}
+.svc-detail:nth-child(even) .svc-detail-in > *{direction:ltr}
+.svc-ico-big{
+  width:100%;aspect-ratio:4/3;border-radius:28px;
+  background:linear-gradient(135deg,var(--sky),var(--sky2));
+  display:flex;align-items:center;justify-content:center;
+  font-size:120px;position:relative;overflow:hidden;
+  box-shadow:0 20px 60px rgba(0,80,160,.10);
+}
+.svc-ico-big::after{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 30% 30%,rgba(0,119,200,.06) 0%,transparent 60%);
+}
+.seye{font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--blue);display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.seye::before{content:'';width:28px;height:2px;background:linear-gradient(to right,var(--blue),var(--cyan));border-radius:1px}
+.sh2{font-family:'Playfair Display',serif;font-size:clamp(32px,3.5vw,48px);line-height:1.15;font-weight:700}
+.sh2 em{font-style:italic;color:var(--blue)}
+.sh2 .ww{color:var(--warm)}
+.sp{font-size:16px;font-weight:300;color:var(--muted);line-height:1.85;margin-top:18px}
+.svc-features{list-style:none;margin-top:28px;display:flex;flex-direction:column;gap:14px}
+.svc-feat{display:flex;align-items:flex-start;gap:12px;font-size:15px}
+.svc-feat-dot{
+  width:20px;height:20px;border-radius:50%;flex-shrink:0;margin-top:2px;
+  background:linear-gradient(135deg,var(--blue),var(--cyan));
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 3px 10px rgba(0,119,200,.25);
+}
+.svc-feat-dot svg{width:10px;color:#fff}
+.svc-feat-txt .feat-title{font-weight:600;margin-bottom:2px}
+.svc-feat-txt .feat-desc{font-size:13px;color:var(--muted);line-height:1.6}
+.svc-link{
+  display:inline-flex;align-items:center;gap:8px;
+  margin-top:32px;padding:14px 30px;border-radius:100px;
+  background:linear-gradient(135deg,var(--blue),var(--cyan));
+  color:#fff;text-decoration:none;font-size:14px;font-weight:600;
+  box-shadow:0 6px 24px rgba(0,119,200,.3);
+  transition:transform .3s,box-shadow .3s;
+}
+.svc-link:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(0,119,200,.4)}
+.svc-link svg{transition:transform .3s}
+.svc-link:hover svg{transform:translateX(3px)}
+
+/* ── CTA ── */
+.ctasec{background:var(--white);padding:40px 64px 120px}
+.ctacard{
+  max-width:1320px;margin:0 auto;
+  background:linear-gradient(135deg,var(--ink) 0%,var(--ink2) 100%);
+  border-radius:36px;padding:80px;
+  display:flex;justify-content:space-between;align-items:center;gap:60px;
+  overflow:hidden;position:relative;
+}
+.ctacard::before{content:'';position:absolute;top:-60px;right:-60px;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(0,180,224,.15) 0%,transparent 60%)}
+.ctacard::after{content:'';position:absolute;bottom:-80px;left:200px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(255,107,53,.1) 0%,transparent 60%)}
+.cta-txt{position:relative;z-index:1}
+.cta-sm{font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--cyan);margin-bottom:16px}
+.cta-h{font-family:'Playfair Display',serif;font-size:clamp(30px,3.5vw,50px);color:#fff;font-weight:700;line-height:1.2}
+.cta-h em{color:var(--cyan);font-style:italic}
+.cta-sub{font-size:15px;color:rgba(255,255,255,.5);margin-top:12px;line-height:1.7}
+.cta-acts{position:relative;z-index:1;display:flex;flex-direction:column;gap:14px;align-items:flex-start;flex-shrink:0}
+.bcta{
+  background:linear-gradient(135deg,var(--cyan),var(--blue));color:#fff;
+  padding:18px 40px;border-radius:100px;font-size:15px;font-weight:600;
+  text-decoration:none;display:inline-flex;align-items:center;gap:8px;
+  box-shadow:0 8px 30px rgba(0,180,224,.35);
+  transition:transform .3s,box-shadow .3s;white-space:nowrap;
+}
+.bcta:hover{transform:translateY(-3px);box-shadow:0 14px 40px rgba(0,180,224,.45)}
+.bghost{color:rgba(255,255,255,.5);font-size:14px;text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:color .3s}
+.bghost:hover{color:#fff}
+
+/* ── FOOTER ── */
+footer{background:var(--ink);padding:90px 64px 48px;position:relative;overflow:hidden}
+footer::before{content:'';position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:800px;height:200px;background:radial-gradient(ellipse,rgba(0,180,224,.06) 0%,transparent 70%);pointer-events:none}
+.foot-grid{max-width:1320px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1.2fr;gap:60px;padding-bottom:60px;border-bottom:1px solid rgba(255,255,255,.07)}
+.flogo img{height:64px;margin-bottom:20px}
+.fabout{font-size:14px;color:rgba(255,255,255,.35);line-height:1.85}
+.fh{font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--cyan);margin-bottom:22px}
+.flinks{list-style:none}
+.flinks li{margin-bottom:12px}
+.flinks a{font-size:14px;color:rgba(255,255,255,.4);text-decoration:none;transition:color .3s}
+.flinks a:hover{color:#fff}
+.fci-row{display:flex;gap:12px;align-items:flex-start;font-size:14px;color:rgba(255,255,255,.4);margin-bottom:14px}
+.fci{color:var(--cyan);margin-top:2px;font-size:16px}
+.fbot{max-width:1320px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;padding-top:36px;font-size:12px;color:rgba(255,255,255,.2)}
+
+/* ── REVEAL ── */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1100px){
+  nav,nav.scrolled{padding:18px 30px}
+  .page-hero{padding:140px 40px 60px}
+  .svc-detail{padding:80px 40px}
+  .svc-detail-in{grid-template-columns:1fr;gap:50px}
+  .svc-detail:nth-child(even) .svc-detail-in{direction:ltr}
+  .ctasec{padding:40px 40px 100px}
+  .ctacard{padding:60px 50px;flex-direction:column;text-align:center;align-items:center}
+  .cta-acts{align-items:center}
+  footer{padding:70px 40px 40px}
+  .foot-grid{grid-template-columns:1fr 1fr;gap:40px}
+}
+@media(max-width:700px){
+  .page-hero{padding:120px 24px 50px}
+  .page-h1{font-size:clamp(30px,7vw,42px)}
+  .page-sub{font-size:15px}
+  .svc-detail{padding:60px 24px}
+  .svc-detail-in{gap:32px}
+  .sh2{font-size:clamp(26px,6vw,36px)}
+  .sp{font-size:15px}
+  .svc-features li{font-size:14px;padding:10px 0}
+  .ctasec{padding:24px 24px 60px}
+  .ctacard{padding:40px 24px;gap:32px;border-radius:24px}
+  .cta-h{font-size:clamp(24px,6vw,36px)}
+  .bcta{padding:14px 28px;font-size:14px}
+  footer{padding:50px 24px 30px}
+  .foot-grid{grid-template-columns:1fr;gap:32px}
+  .flogo img{height:52px}
+  .nav-links{display:none}
+  .nav-phone-num{display:none}
+  .nav-phone{padding:6px;box-shadow:0 0 0 2px var(--blue),0 4px 12px rgba(0,119,200,.15)}
+  .hamburger{display:flex}
+  .nav-links.open{
+    display:flex;flex-direction:column;
+    position:fixed;top:0;right:0;bottom:0;
+    width:280px;background:var(--white);
+    padding:100px 40px 40px;gap:8px;
+    box-shadow:-10px 0 40px rgba(0,0,0,.1);z-index:250;
+    animation:slideIn .3s ease;
+  }
+  .nav-links.open a{font-size:17px;opacity:.8;padding:12px 0;border-bottom:1px solid var(--border)}
+  .nav-links.open .nav-btn{margin-top:16px;text-align:center;border-bottom:none}
+  .mob-overlay.open{display:block;position:fixed;inset:0;background:rgba(0,0,0,.3);z-index:240}
+  .hamburger.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+  .hamburger.active span:nth-child(2){opacity:0}
+  .hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+  .logo img{height:48px}
+}
+@media(max-width:400px){
+  .page-hero{padding:110px 16px 40px}
+  .page-h1{font-size:clamp(26px,7vw,34px)}
+  .svc-detail{padding:40px 16px}
+  .svc-detail-in{gap:24px}
+  .ctasec{padding:16px 16px 50px}
+  .ctacard{padding:32px 20px}
+  footer{padding:40px 16px 24px}
+}
+@keyframes slideIn{from{transform:translateX(100%)}to{transform:translateX(0)}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="logo">
+    <a href="index.html"><img src="images/logo.png" alt="Klimatechnik Völker" onerror="this.style.display='none'"></a>
+  </div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Start</a></li>
+    <li><a href="leistungen.html" class="active">Leistungen</a></li>
+    <li><a href="ablauf.html">Ablauf</a></li>
+    <li><a href="referenzen.html">Referenzen</a></li>
+    <li><a href="kontakt.html" class="nav-btn">Anfrage stellen</a></li>
+  </ul>
+  <a href="tel:022836970855" class="nav-phone">
+    <span class="nav-phone-ico"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81 19.79 19.79 0 01.18 2.18 2 2 0 012.18 0h3a2 2 0 012 1.72c.128.96.36 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.13 6.13l1.27-1.27a2 2 0 012.11-.45c.907.34 1.85.572 2.81.7A2 2 0 0122 16.92z"/></svg></span>
+    <span class="nav-phone-num">0228 36970 855</span>
+  </a>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="mob-overlay" id="mobOverlay"></div>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="page-hero-inner">
+    <div class="eyebrow"><span class="eyebrow-bar"></span>Unsere Leistungen</div>
+    <h1 class="page-h1">Komplettservice für<br><em>Ihr Raumklima.</em></h1>
+    <p class="page-desc">Von der ersten Beratung bis zum langfristigen Service — wir decken das gesamte Spektrum moderner Klima- und Heiztechnik ab.</p>
+  </div>
+  <svg class="hero-wave" viewBox="0 0 1440 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,30 C480,100 960,0 1440,50 L1440,90 L0,90 Z" fill="white"/>
+  </svg>
+</section>
+
+<!-- KLIMAANLAGEN -->
+<section class="svc-detail" id="klimaanlagen">
+  <div class="svc-detail-in reveal">
+    <div class="svc-ico-big">❄️</div>
+    <div>
+      <div class="seye">Klimaanlagen</div>
+      <h2 class="sh2"><em>Kühlsysteme</em> für jeden Bedarf.</h2>
+      <p class="sp">Ob Einzimmerwohnung oder Großraumbüro — wir planen und installieren maßgeschneiderte Klimaanlagen mit modernster Inverter-Technologie für maximale Effizienz und minimale Betriebskosten.</p>
+      <ul class="svc-features">
+        <li class="svc-feat">
+          <div class="svc-feat-dot"><svg viewBox="0 0 12 10" fill="none" stroke="white" stroke-width="2.5"><polyline points="1,5 4,9 11,1"/></svg></div>
+          <div class="svc-feat-txt"><div class="feat-title">Split- &amp; Multi-Split-Systeme</div><div class="feat-desc">Flexibel für einzelne Räume oder ganze Gebäude — leise, effizient und modern.</div></div>
+        </li>
+        <li class="svc-feat">
+          <div class="svc-feat-dot"><svg viewBox="0 0 12 10" fill="none" stroke="white" stroke-width="2.5"><polyline points="1,5 4,9 11,1"/></svg></div>
+          <div class="svc-feat-txt"><div class="feat-title">VRV/VRF-Anlagen</div><div class="feat-desc">Zentrale Klimatisierung für Gewerbe und große Objekte mit individueller Zonensteuerung.</div></div>
+        </li>
+        <li class="svc-feat">
+          <div class="svc-feat-dot"><svg viewBox="0 0 12 10" fill="none" stroke="white" stroke-width="2.5"><polyline points="1,5 4,9 11,1"/></svg></div>
+          <div class="svc-feat-txt"><div class="feat-title">Kanalklimageräte &amp; Deckenkassetten</div><div class="feat-desc">Unsichtbare Integration in Decken und Zwischendecken für ein makelloses Raumdesign.</div></div>
+        </li>
+      </ul>
+      <a href="kontakt.html" class="svc-link">
+        Jetzt beraten lassen
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- WÄRMEPUMPEN -->
+<section class="svc-detail" id="waermepumpen">
+  <div class="svc-detail-in reveal">
+    <div class="svc-ico-big">🔥</div>
+    <div>
+      <div class="seye">Wärmepumpen</div>
+      <h2 class="sh2"><span class="ww">Heizen</span> mit <em>Zukunftstechnik.</em></h2>
+      <p class="sp">Wärmepumpen nutzen kostenlose Umweltenergie und wandeln sie in behagliche Wärme um. Als zertifizierter Fachbetrieb beraten wir Sie umfassend zu Fördermitteln und der optimalen Lösung für Ihr Gebäude.</p>
+      <ul class="svc-features">
+        <li class="svc-feat">
+          <div class="svc-feat-dot"><svg viewBox="0 0 12 10" fill="none" stroke="white" stroke-width="2.5"><polyline points="1,5 4,9 11,1"/></svg></div>
+          <div class="svc-feat-txt"><div class="feat-title">Luft-Wasser-Wärmepumpen</div><div class="feat-desc">Ideal für Neubauten und sanierte Altbauten — einfache Installation, hohe Effizienz.</div></div>
+        </li>
+        <li class="svc-feat">
+          <div class="svc-feat-dot"><svg viewBox="0 0 12 10" fill="none" stroke="white" stroke-width="2.5"><polyline points="1,5 4,9 11,1"/></svg></div>
+          <div class="svc-feat-txt"><div class="feat-title">Luft-Luft-Wärmepumpen</div><div class="feat-desc">Heizen und Kühlen in einem System — besonders wirtschaftlich in Übergangsjahreszeiten.</div></div>
+        </li>
+        <li class="svc-feat">
+          <div class="svc-feat-dot"><svg viewBox="0 0 12 10" fill="none" stroke="white" stroke-width="2.5"><polyline points="1,5 4,9 11,1"/></svg></div>
+          <div class="svc-feat-txt"><div class="feat-title">Förderberatung inklusive</div><div class="feat-desc">Wir unterstützen Sie bei KfW- und BAFA-Anträgen — damit Sie maximale Zuschüsse erhalten.</div></div>
+        </li>
+      </ul>
+      <a href="kontakt.html" class="svc-link">
+        Jetzt beraten lassen
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- HEIZUNG -->
+<section class="svc-detail" id="heizung">
+  <div class="svc-detail-in reveal">
+    <div class="svc-ico-big">🏠</div>
+    <div>
+      <div class="seye">Heizungsinstallation</div>
+      <h2 class="sh2"><span class="ww">Wärme,</span> die <em>ankommt.</em></h2>
+      <p class="sp">Neubau oder Sanierung — wir installieren komplette Heizsysteme, die perfekt auf Ihr Gebäude abgestimmt sind. Von der Gastherme bis zur Fußbodenheizung, alles aus einer Hand.</p>
+      <ul class="svc-features">
+        <li class="svc-feat">
+          <div class="svc-feat-dot"><svg viewBox="0 0 12 10" fill="none" stroke="white" stroke-width="2.5"><polyline points="1,5 4,9 11,1"/></svg></div>
+          <div class="svc-feat-txt"><div class="feat-title">Gasthermen &amp; Brennwertkessel</div><div class="feat-desc">Moderne, sparsame Heizkessel mit höchster Energieausbeute und langer Lebensdauer.</div></div>
+        </li>
+        <li class="svc-feat">
+          <div class="svc-feat-dot"><svg viewBox="0 0 12 10" fill="none" stroke="white" stroke-width="2.5"><polyline points="1,5 4,9 11,1"/></svg></div>
+          <div class="svc-feat-txt"><div class="feat-title">Fußbodenheizung</div><div class="feat-desc">Gleichmäßige, angenehme Wärme ohne sichtbare Heizkörper — für maximalen Wohnkomfort.</div></div>
+        </li>
+        <li class="svc-feat">
+          <div class="svc-feat-dot"><svg viewBox="0 0 12 10" fill="none" stroke="white" stroke-width="2.5"><polyline points="1,5 4,9 11,1"/></svg></div>
+          <div class="svc-feat-txt"><div class="feat-title">Heizkörper &amp; Etagenheizung</div><div class="feat-desc">Klassische und moderne Heizkörperlösungen für jede Raumsituation.</div></div>
+        </li>
+      </ul>
+      <a href="kontakt.html" class="svc-link">
+        Jetzt beraten lassen
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ENERGETISCHE SANIERUNG -->
+<section class="svc-detail" id="sanierung">
+  <div class="svc-detail-in reveal">
+    <div class="svc-ico-big">⚡</div>
+    <div>
+      <div class="seye">Energetische Sanierung</div>
+      <h2 class="sh2">Modernisieren. <em>Sparen.</em> Profitieren.</h2>
+      <p class="sp">Alte Heizungsanlagen verbrauchen bis zu 40% mehr Energie als moderne Systeme. Wir analysieren Ihren Bestand und entwickeln ein maßgeschneidertes Sanierungskonzept — inklusive Förderberatung.</p>
+      <ul class="svc-features">
+        <li class="svc-feat">
+          <div class="svc-feat-dot"><svg viewBox="0 0 12 10" fill="none" stroke="white" stroke-width="2.5"><polyline points="1,5 4,9 11,1"/></svg></div>
+          <div class="svc-feat-txt"><div class="feat-title">Heizungstausch</div><div class="feat-desc">Wechsel von Öl/Gas auf Wärmepumpe oder effiziente Brennwerttechnik.</div></div>
+        </li>
+        <li class="svc-feat">
+          <div class="svc-feat-dot"><svg viewBox="0 0 12 10" fill="none" stroke="white" stroke-width="2.5"><polyline points="1,5 4,9 11,1"/></svg></div>
+          <div class="svc-feat-txt"><div class="feat-title">Hydraulischer Abgleich</div><div class="feat-desc">Optimale Wärmeverteilung im gesamten Gebäude — senkt sofort die Energiekosten.</div></div>
+        </li>
+        <li class="svc-feat">
+          <div class="svc-feat-dot"><svg viewBox="0 0 12 10" fill="none" stroke="white" stroke-width="2.5"><polyline points="1,5 4,9 11,1"/></svg></div>
+          <div class="svc-feat-txt"><div class="feat-title">Fördermittelberatung</div><div class="feat-desc">Bis zu 70% Förderung möglich — wir navigieren Sie durch den Antragsprozess.</div></div>
+        </li>
+      </ul>
+      <a href="kontakt.html" class="svc-link">
+        Jetzt beraten lassen
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- GEWERBE & INDUSTRIE -->
+<section class="svc-detail" id="gewerbe">
+  <div class="svc-detail-in reveal">
+    <div class="svc-ico-big">🏢</div>
+    <div>
+      <div class="seye">Gewerbe &amp; Industrie</div>
+      <h2 class="sh2"><em>Klimatechnik</em> im großen Maßstab.</h2>
+      <p class="sp">Büros, Restaurants, Hotels, Produktionshallen — wir entwickeln leistungsstarke Klimasysteme, die zuverlässig arbeiten und Betriebskosten senken.</p>
+      <ul class="svc-features">
+        <li class="svc-feat">
+          <div class="svc-feat-dot"><svg viewBox="0 0 12 10" fill="none" stroke="white" stroke-width="2.5"><polyline points="1,5 4,9 11,1"/></svg></div>
+          <div class="svc-feat-txt"><div class="feat-title">Büro- &amp; Geschäftsklimatisierung</div><div class="feat-desc">Angenehmes Arbeitsklima steigert Produktivität — wir sorgen für die richtige Temperatur.</div></div>
+        </li>
+        <li class="svc-feat">
+          <div class="svc-feat-dot"><svg viewBox="0 0 12 10" fill="none" stroke="white" stroke-width="2.5"><polyline points="1,5 4,9 11,1"/></svg></div>
+          <div class="svc-feat-txt"><div class="feat-title">Gastronomie &amp; Hotellerie</div><div class="feat-desc">Speziallösungen für Küchen, Gasträume und Hotelzimmer mit höchsten Komfortansprüchen.</div></div>
+        </li>
+        <li class="svc-feat">
+          <div class="svc-feat-dot"><svg viewBox="0 0 12 10" fill="none" stroke="white" stroke-width="2.5"><polyline points="1,5 4,9 11,1"/></svg></div>
+          <div class="svc-feat-txt"><div class="feat-title">Industrie &amp; Lager</div><div class="feat-desc">Klimatisierung und Entfeuchtung für Produktions- und Lagerflächen.</div></div>
+        </li>
+      </ul>
+      <a href="kontakt.html" class="svc-link">
+        Jetzt beraten lassen
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- WARTUNG & REPARATUR -->
+<section class="svc-detail" id="wartung">
+  <div class="svc-detail-in reveal">
+    <div class="svc-ico-big">🔧</div>
+    <div>
+      <div class="seye">Wartung &amp; Reparatur</div>
+      <h2 class="sh2">Damit alles <em>reibungslos</em> läuft.</h2>
+      <p class="sp">Regelmäßige Wartung verlängert die Lebensdauer Ihrer Anlage, senkt Energiekosten und sichert die Gewährleistung. Unser Kundendienst ist schnell, zuverlässig und transparent.</p>
+      <ul class="svc-features">
+        <li class="svc-feat">
+          <div class="svc-feat-dot"><svg viewBox="0 0 12 10" fill="none" stroke="white" stroke-width="2.5"><polyline points="1,5 4,9 11,1"/></svg></div>
+          <div class="svc-feat-txt"><div class="feat-title">Wartungsverträge</div><div class="feat-desc">Jährliche Inspektion und Reinigung — planbar, bezahlbar und ohne Überraschungen.</div></div>
+        </li>
+        <li class="svc-feat">
+          <div class="svc-feat-dot"><svg viewBox="0 0 12 10" fill="none" stroke="white" stroke-width="2.5"><polyline points="1,5 4,9 11,1"/></svg></div>
+          <div class="svc-feat-txt"><div class="feat-title">Schnelle Reparaturen</div><div class="feat-desc">Bei Störungen sind wir kurzfristig vor Ort — für alle gängigen Marken und Systeme.</div></div>
+        </li>
+        <li class="svc-feat">
+          <div class="svc-feat-dot"><svg viewBox="0 0 12 10" fill="none" stroke="white" stroke-width="2.5"><polyline points="1,5 4,9 11,1"/></svg></div>
+          <div class="svc-feat-txt"><div class="feat-title">Kältemittelservice</div><div class="feat-desc">Fachgerechte Dichtigkeitsprüfung und Kältemittelnachfüllung gemäß F-Gase-Verordnung.</div></div>
+        </li>
+      </ul>
+      <a href="kontakt.html" class="svc-link">
+        Jetzt beraten lassen
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="ctasec">
+  <div class="ctacard reveal">
+    <div class="cta-txt">
+      <div class="cta-sm">Bereit loszulegen?</div>
+      <h2 class="cta-h">Ihr perfektes Klima<br>beginnt mit einem<br><em>Gespräch.</em></h2>
+      <p class="cta-sub">Kostenlose Beratung · transparentes Angebot<br>schnelle Umsetzung — wir sind für Sie da.</p>
+    </div>
+    <div class="cta-acts">
+      <a href="tel:+49" class="bcta">
+        Jetzt anrufen
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81 19.79 19.79 0 01.18 2.18 2 2 0 012.18 0h3a2 2 0 012 1.72c.128.96.36 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.13 6.13l1.27-1.27a2 2 0 012.11-.45c.907.34 1.85.572 2.81.7A2 2 0 0122 16.92z"/></svg>
+      </a>
+      <a href="kontakt.html" class="bghost">Kontaktformular nutzen</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-grid">
+    <div>
+      <div class="flogo"><img src="images/logoweiß.png" alt="Klimatechnik Völker" onerror="this.style.display='none'"></div>
+      <p class="fabout">Ihr zuverlässiger Fachbetrieb für Klimaanlagen, Wärmepumpen und Heizungsanlagen in Düsseldorf, Köln und dem gesamten Rheinland.</p>
+    </div>
+    <div>
+      <div class="fh">Navigation</div>
+      <ul class="flinks"><li><a href="index.html">Start</a></li><li><a href="leistungen.html">Leistungen</a></li><li><a href="ablauf.html">Ablauf</a></li><li><a href="referenzen.html">Referenzen</a></li><li><a href="kontakt.html">Kontakt</a></li></ul>
+    </div>
+    <div>
+      <div class="fh">Leistungen</div>
+      <ul class="flinks"><li><a href="leistungen.html#klimaanlagen">Klimaanlagen</a></li><li><a href="leistungen.html#waermepumpen">Wärmepumpen</a></li><li><a href="leistungen.html#heizung">Heizung</a></li><li><a href="leistungen.html#sanierung">Energetische Sanierung</a></li><li><a href="leistungen.html#wartung">Wartung &amp; Service</a></li></ul>
+    </div>
+    <div>
+      <div class="fh">Kontakt</div>
+      <div class="fci-row"><span class="fci">📍</span><span>Düsseldorf &amp; Köln und Umgebung</span></div>
+      <div class="fci-row"><span class="fci">🌐</span><a href="http://www.klima-voelker.de" style="color:inherit;text-decoration:none">www.klima-voelker.de</a></div>
+      <div class="fci-row"><span class="fci">⏰</span><span>Mo – Fr  7:00 – 18:00 Uhr</span></div>
+    </div>
+  </div>
+  <div class="fbot">
+    <span>&copy; 2026 Klimatechnik Völker. Alle Rechte vorbehalten.</span>
+    <span>Impressum &middot; Datenschutz</span>
+  </div>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 60), {passive:true});
+
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); }});
+}, {threshold:.12});
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.getElementById('navLinks');
+const mobOverlay = document.getElementById('mobOverlay');
+if(hamburger){
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    navLinks.classList.toggle('open');
+    mobOverlay.classList.toggle('open');
+  });
+  mobOverlay.addEventListener('click', () => {
+    hamburger.classList.remove('active');
+    navLinks.classList.remove('open');
+    mobOverlay.classList.remove('open');
+  });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ablauf – Klimatechnik Völker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+
+:root{
+  --sky:#e8f4fb;--sky2:#d4ecf7;--white:#ffffff;
+  --blue:#0077c8;--blue2:#005fa3;--cyan:#00b4e0;
+  --warm:#ff6b35;--warm2:#e55a28;
+  --ink:#0d1f36;--ink2:#1a3050;--muted:#7a95ad;
+  --border:rgba(0,119,200,0.12);
+  --shadow:0 20px 60px rgba(0,100,180,0.10);
+}
+
+body{font-family:'Outfit',sans-serif;background:var(--white);color:var(--ink);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--sky)}
+::-webkit-scrollbar-thumb{background:var(--blue);border-radius:2px}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  padding:24px 64px;
+  display:flex;justify-content:space-between;align-items:center;
+  transition:all .5s cubic-bezier(.25,.46,.45,.94);
+}
+nav.scrolled{
+  padding:16px 64px;
+  background:rgba(255,255,255,.9);
+  backdrop-filter:blur(20px);
+  box-shadow:0 1px 0 var(--border),var(--shadow);
+}
+.logo img{height:64px}
+.nav-links{position:absolute;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:36px;list-style:none}
+.nav-links a{color:var(--ink);text-decoration:none;font-size:14px;font-weight:500;opacity:.65;transition:opacity .3s}
+.nav-links a:hover,.nav-links a.active{opacity:1}
+.nav-btn{
+  background:var(--blue);color:#fff!important;opacity:1!important;
+  padding:11px 26px;border-radius:100px;font-weight:600!important;
+  box-shadow:0 4px 18px rgba(0,119,200,.3);
+  transition:background .3s,transform .2s,box-shadow .3s!important;
+}
+.nav-btn:hover{background:var(--blue2)!important;transform:translateY(-1px);box-shadow:0 8px 28px rgba(0,119,200,.35)!important}
+
+.nav-phone{
+  display:flex;align-items:center;gap:10px;
+  background:var(--white);margin-left:auto;
+  padding:8px 22px 8px 8px;border-radius:100px;
+  text-decoration:none;color:var(--ink);
+  font-size:14px;font-weight:600;letter-spacing:.02em;
+  box-shadow:0 0 0 3px var(--blue),0 4px 18px rgba(0,119,200,.15);
+  transition:transform .2s,box-shadow .3s;
+  white-space:nowrap;z-index:10;
+}
+.nav-phone:hover{transform:translateY(-1px);box-shadow:0 0 0 3px var(--blue2),0 8px 28px rgba(0,119,200,.25)}
+.nav-phone-ico{
+  width:36px;height:36px;border-radius:50%;
+  background:linear-gradient(135deg,var(--blue),var(--cyan));
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.nav-phone-ico svg{width:16px;height:16px}
+
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:8px;z-index:300}
+.hamburger span{display:block;width:24px;height:2px;background:var(--ink);border-radius:2px;transition:all .3s}
+.mob-overlay{display:none}
+
+/* ── PAGE HERO ── */
+.page-hero{
+  min-height:50vh;position:relative;overflow:hidden;
+  display:flex;align-items:center;
+  background:linear-gradient(160deg,var(--white) 0%,var(--sky) 55%,var(--sky2) 100%);
+  padding:160px 64px 80px;
+}
+.orb{position:absolute;border-radius:50%;pointer-events:none}
+.orb1{width:500px;height:500px;background:radial-gradient(circle,rgba(0,180,224,.12) 0%,transparent 70%);top:-150px;right:-100px}
+.orb2{width:350px;height:350px;background:radial-gradient(circle,rgba(0,119,200,.08) 0%,transparent 70%);bottom:-80px;left:-60px}
+.page-hero-inner{max-width:1320px;margin:0 auto;width:100%;position:relative;z-index:2;text-align:center}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--blue);margin-bottom:22px}
+.eyebrow-bar{width:28px;height:2px;background:linear-gradient(to right,var(--cyan),var(--blue));border-radius:1px}
+.page-h1{font-family:'Playfair Display',serif;font-size:clamp(42px,5vw,72px);font-weight:700;line-height:1.1}
+.page-h1 em{color:var(--blue);font-style:italic}
+.page-desc{font-size:17px;font-weight:300;color:var(--muted);line-height:1.8;max-width:600px;margin:20px auto 0}
+.hero-wave{position:absolute;bottom:-2px;left:0;right:0;pointer-events:none;z-index:3}
+
+/* ── TIMELINE ── */
+.timeline-section{padding:120px 64px;background:var(--white)}
+.timeline-in{max-width:1320px;margin:0 auto}
+.shead{text-align:center;padding-bottom:80px}
+.seye{font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--blue);display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.shead .seye{justify-content:center}
+.shead .seye::before,.shead .seye::after{content:'';flex:0 0 28px;height:2px;background:linear-gradient(to right,var(--blue),var(--cyan));border-radius:1px}
+.shead h2{font-family:'Playfair Display',serif;font-size:clamp(36px,4vw,56px);font-weight:700;line-height:1.1}
+.shead h2 em{color:var(--blue);font-style:italic}
+.shead p{font-size:16px;font-weight:300;color:var(--muted);line-height:1.8;max-width:560px;margin:18px auto 0}
+
+.timeline{position:relative;padding:0 0 0 60px}
+.timeline::before{
+  content:'';position:absolute;left:27px;top:0;bottom:0;width:3px;
+  background:linear-gradient(to bottom,var(--blue),var(--cyan),var(--warm));
+  border-radius:2px;
+}
+.tl-step{position:relative;padding:0 0 80px 50px}
+.tl-step:last-child{padding-bottom:0}
+.tl-dot{
+  position:absolute;left:-36px;top:0;
+  width:56px;height:56px;border-radius:50%;
+  background:var(--white);border:3px solid var(--blue);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--blue);
+  box-shadow:0 0 0 8px var(--sky),0 8px 24px rgba(0,119,200,.15);
+  transition:all .4s;z-index:1;
+}
+.tl-step:hover .tl-dot{
+  background:linear-gradient(135deg,var(--blue),var(--cyan));
+  color:#fff;border-color:transparent;
+  box-shadow:0 0 0 8px rgba(0,119,200,.15),0 12px 32px rgba(0,119,200,.25);
+}
+.tl-content{
+  background:var(--white);border-radius:24px;padding:40px;
+  box-shadow:0 4px 24px rgba(0,80,160,.07);
+  border:1px solid var(--border);
+  transition:transform .4s,box-shadow .4s;
+}
+.tl-step:hover .tl-content{transform:translateY(-4px);box-shadow:0 16px 48px rgba(0,80,160,.12)}
+.tl-tag{
+  display:inline-block;font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--blue);background:rgba(0,119,200,.08);padding:5px 14px;border-radius:100px;margin-bottom:16px;
+}
+.tl-title{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;margin-bottom:12px;line-height:1.3}
+.tl-desc{font-size:15px;color:var(--muted);line-height:1.8}
+.tl-highlights{display:flex;gap:24px;margin-top:20px;flex-wrap:wrap}
+.tl-hl{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:500;color:var(--ink)}
+.tl-hl-ico{
+  width:28px;height:28px;border-radius:8px;
+  background:linear-gradient(135deg,var(--sky),var(--sky2));
+  display:flex;align-items:center;justify-content:center;font-size:14px;
+}
+
+/* ── WHY US ── */
+.why-section{
+  padding:120px 64px;
+  background:linear-gradient(180deg,#f4f9fd 0%,#edf4fa 50%,#f4f9fd 100%);
+}
+.why-in{max-width:1320px;margin:0 auto}
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:70px}
+.why-card{
+  background:var(--white);border-radius:24px;padding:40px 32px;text-align:center;
+  box-shadow:0 4px 20px rgba(0,80,160,.06);
+  transition:transform .4s,box-shadow .4s;
+}
+.why-card:hover{transform:translateY(-6px);box-shadow:0 16px 48px rgba(0,80,160,.12)}
+.why-ico{
+  width:72px;height:72px;border-radius:20px;margin:0 auto 24px;
+  background:linear-gradient(135deg,var(--sky),var(--sky2));
+  display:flex;align-items:center;justify-content:center;font-size:32px;
+}
+.why-title{font-size:18px;font-weight:600;margin-bottom:10px}
+.why-desc{font-size:14px;color:var(--muted);line-height:1.8}
+
+/* ── CTA ── */
+.ctasec{background:var(--white);padding:40px 64px 120px}
+.ctacard{
+  max-width:1320px;margin:0 auto;
+  background:linear-gradient(135deg,var(--ink) 0%,var(--ink2) 100%);
+  border-radius:36px;padding:80px;
+  display:flex;justify-content:space-between;align-items:center;gap:60px;
+  overflow:hidden;position:relative;
+}
+.ctacard::before{content:'';position:absolute;top:-60px;right:-60px;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(0,180,224,.15) 0%,transparent 60%)}
+.ctacard::after{content:'';position:absolute;bottom:-80px;left:200px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(255,107,53,.1) 0%,transparent 60%)}
+.cta-txt{position:relative;z-index:1}
+.cta-sm{font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--cyan);margin-bottom:16px}
+.cta-h{font-family:'Playfair Display',serif;font-size:clamp(30px,3.5vw,50px);color:#fff;font-weight:700;line-height:1.2}
+.cta-h em{color:var(--cyan);font-style:italic}
+.cta-sub{font-size:15px;color:rgba(255,255,255,.5);margin-top:12px;line-height:1.7}
+.cta-acts{position:relative;z-index:1;display:flex;flex-direction:column;gap:14px;align-items:flex-start;flex-shrink:0}
+.bcta{
+  background:linear-gradient(135deg,var(--cyan),var(--blue));color:#fff;
+  padding:18px 40px;border-radius:100px;font-size:15px;font-weight:600;
+  text-decoration:none;display:inline-flex;align-items:center;gap:8px;
+  box-shadow:0 8px 30px rgba(0,180,224,.35);transition:transform .3s,box-shadow .3s;white-space:nowrap;
+}
+.bcta:hover{transform:translateY(-3px);box-shadow:0 14px 40px rgba(0,180,224,.45)}
+.bghost{color:rgba(255,255,255,.5);font-size:14px;text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:color .3s}
+.bghost:hover{color:#fff}
+
+/* ── FOOTER ── */
+footer{background:var(--ink);padding:90px 64px 48px;position:relative;overflow:hidden}
+footer::before{content:'';position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:800px;height:200px;background:radial-gradient(ellipse,rgba(0,180,224,.06) 0%,transparent 70%);pointer-events:none}
+.foot-grid{max-width:1320px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1.2fr;gap:60px;padding-bottom:60px;border-bottom:1px solid rgba(255,255,255,.07)}
+.flogo img{height:64px;margin-bottom:20px}
+.fabout{font-size:14px;color:rgba(255,255,255,.35);line-height:1.85}
+.fh{font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--cyan);margin-bottom:22px}
+.flinks{list-style:none}
+.flinks li{margin-bottom:12px}
+.flinks a{font-size:14px;color:rgba(255,255,255,.4);text-decoration:none;transition:color .3s}
+.flinks a:hover{color:#fff}
+.fci-row{display:flex;gap:12px;align-items:flex-start;font-size:14px;color:rgba(255,255,255,.4);margin-bottom:14px}
+.fci{color:var(--cyan);margin-top:2px;font-size:16px}
+.fbot{max-width:1320px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;padding-top:36px;font-size:12px;color:rgba(255,255,255,.2)}
+
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+
+@media(max-width:1100px){
+  nav,nav.scrolled{padding:18px 30px}
+  .page-hero{padding:140px 40px 60px}
+  .timeline-section{padding:100px 40px}
+  .why-section{padding:100px 40px}
+  .why-grid{grid-template-columns:repeat(2,1fr)}
+  .ctasec{padding:40px 40px 100px}
+  .ctacard{padding:60px 50px;flex-direction:column;text-align:center;align-items:center}
+  .cta-acts{align-items:center}
+  footer{padding:70px 40px 40px}
+  .foot-grid{grid-template-columns:1fr 1fr;gap:40px}
+}
+@media(max-width:700px){
+  .page-hero{padding:120px 24px 50px}
+  .page-h1{font-size:clamp(30px,7vw,42px)}
+  .page-sub{font-size:15px}
+  .timeline-section{padding:60px 24px}
+  .why-section{padding:60px 24px}
+  .why-grid{grid-template-columns:1fr;gap:20px}
+  .why-card{padding:28px 24px}
+  .timeline{padding-left:40px}
+  .timeline::before{left:17px}
+  .tl-dot{left:-26px;width:44px;height:44px;font-size:16px}
+  .tl-step{padding-left:36px}
+  .tl-content{padding:28px 24px}
+  .tl-title{font-size:20px}
+  .tl-highlights{flex-direction:column;gap:12px}
+  .shead h2{font-size:clamp(28px,6vw,40px)}
+  .ctasec{padding:24px 24px 60px}
+  .ctacard{padding:40px 24px;gap:32px;border-radius:24px}
+  .cta-h{font-size:clamp(24px,6vw,36px)}
+  .bcta{padding:14px 28px;font-size:14px}
+  footer{padding:50px 24px 30px}
+  .foot-grid{grid-template-columns:1fr;gap:32px}
+  .flogo img{height:52px}
+  .nav-links{display:none}
+  .nav-phone-num{display:none}
+  .nav-phone{padding:6px;box-shadow:0 0 0 2px var(--blue),0 4px 12px rgba(0,119,200,.15)}
+  .hamburger{display:flex}
+  .nav-links.open{
+    display:flex;flex-direction:column;
+    position:fixed;top:0;right:0;bottom:0;
+    width:280px;background:var(--white);
+    padding:100px 40px 40px;gap:8px;
+    box-shadow:-10px 0 40px rgba(0,0,0,.1);z-index:250;
+    animation:slideIn .3s ease;
+  }
+  .nav-links.open a{font-size:17px;opacity:.8;padding:12px 0;border-bottom:1px solid var(--border)}
+  .nav-links.open .nav-btn{margin-top:16px;text-align:center;border-bottom:none}
+  .mob-overlay.open{display:block;position:fixed;inset:0;background:rgba(0,0,0,.3);z-index:240}
+  .hamburger.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+  .hamburger.active span:nth-child(2){opacity:0}
+  .hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+  .logo img{height:48px}
+}
+@media(max-width:400px){
+  .page-hero{padding:110px 16px 40px}
+  .page-h1{font-size:clamp(26px,7vw,34px)}
+  .timeline-section{padding:50px 16px}
+  .why-section{padding:50px 16px}
+  .why-card{padding:24px 20px}
+  .tl-content{padding:24px 20px}
+  .timeline{padding-left:32px}
+  .timeline::before{left:13px}
+  .tl-dot{left:-22px;width:36px;height:36px;font-size:14px}
+  .tl-step{padding-left:28px}
+  .ctasec{padding:16px 16px 50px}
+  .ctacard{padding:32px 20px}
+  footer{padding:40px 16px 24px}
+}
+@keyframes slideIn{from{transform:translateX(100%)}to{transform:translateX(0)}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="logo">
+    <a href="index.html"><img src="images/logo.png" alt="Klimatechnik Völker" onerror="this.style.display='none'"></a>
+  </div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Start</a></li>
+    <li><a href="leistungen.html">Leistungen</a></li>
+    <li><a href="ablauf.html" class="active">Ablauf</a></li>
+    <li><a href="referenzen.html">Referenzen</a></li>
+    <li><a href="kontakt.html" class="nav-btn">Anfrage stellen</a></li>
+  </ul>
+  <a href="tel:022836970855" class="nav-phone">
+    <span class="nav-phone-ico"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81 19.79 19.79 0 01.18 2.18 2 2 0 012.18 0h3a2 2 0 012 1.72c.128.96.36 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.13 6.13l1.27-1.27a2 2 0 012.11-.45c.907.34 1.85.572 2.81.7A2 2 0 0122 16.92z"/></svg></span>
+    <span class="nav-phone-num">0228 36970 855</span>
+  </a>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="mob-overlay" id="mobOverlay"></div>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="page-hero-inner">
+    <div class="eyebrow"><span class="eyebrow-bar"></span>Unser Ablauf</div>
+    <h1 class="page-h1">In vier Schritten<br>zu Ihrem <em>Wunschklima.</em></h1>
+    <p class="page-desc">Transparente Prozesse, klare Kommunikation und professionelle Umsetzung — so arbeiten wir bei jedem Projekt.</p>
+  </div>
+  <svg class="hero-wave" viewBox="0 0 1440 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,30 C480,100 960,0 1440,50 L1440,90 L0,90 Z" fill="white"/>
+  </svg>
+</section>
+
+<!-- TIMELINE -->
+<section class="timeline-section">
+  <div class="timeline-in">
+    <div class="shead">
+      <div class="seye reveal">Schritt fur Schritt</div>
+      <h2 class="reveal d1">So lauft Ihr Projekt <em>bei uns ab.</em></h2>
+      <p class="reveal d2">Vom ersten Kontakt bis zur fertigen Anlage — wir sorgen dafur, dass Sie zu jeder Zeit genau wissen, was passiert.</p>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-step reveal">
+        <div class="tl-dot">1</div>
+        <div class="tl-content">
+          <div class="tl-tag">Erster Kontakt</div>
+          <div class="tl-title">Anfrage &amp; kostenlose Beratung</div>
+          <div class="tl-desc">Kontaktieren Sie uns telefonisch, per E-Mail oder uber unser Kontaktformular. Innerhalb von 24 Stunden melden wir uns bei Ihnen zuruck und besprechen Ihre Wunsche, Anforderungen und den zeitlichen Rahmen.</div>
+          <div class="tl-highlights">
+            <div class="tl-hl"><div class="tl-hl-ico">⏱️</div>Antwort in 24h</div>
+            <div class="tl-hl"><div class="tl-hl-ico">💬</div>Unverbindlich</div>
+            <div class="tl-hl"><div class="tl-hl-ico">📋</div>Bedarfsanalyse</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-step reveal">
+        <div class="tl-dot">2</div>
+        <div class="tl-content">
+          <div class="tl-tag">Planung</div>
+          <div class="tl-title">Vor-Ort-Besichtigung &amp; Angebot</div>
+          <div class="tl-desc">Unsere Experten kommen zu Ihnen, nehmen die raumlichen Gegebenheiten auf und beraten Sie vor Ort. Anschliessend erhalten Sie ein detailliertes, transparentes Angebot — ohne versteckte Kosten.</div>
+          <div class="tl-highlights">
+            <div class="tl-hl"><div class="tl-hl-ico">📐</div>Aufmass vor Ort</div>
+            <div class="tl-hl"><div class="tl-hl-ico">💰</div>Festpreisangebot</div>
+            <div class="tl-hl"><div class="tl-hl-ico">📄</div>Forderberatung</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-step reveal">
+        <div class="tl-dot">3</div>
+        <div class="tl-content">
+          <div class="tl-tag">Umsetzung</div>
+          <div class="tl-title">Professionelle Montage</div>
+          <div class="tl-desc">Nach Auftragserteilung vereinbaren wir einen Montagetermin, der in Ihren Zeitplan passt. Unsere erfahrenen Fachkrafte installieren Ihre Anlage sauber, leise und termingerecht — mit minimalem Eingriff in Ihren Alltag.</div>
+          <div class="tl-highlights">
+            <div class="tl-hl"><div class="tl-hl-ico">🛡️</div>Saubere Arbeit</div>
+            <div class="tl-hl"><div class="tl-hl-ico">⏰</div>Termingerecht</div>
+            <div class="tl-hl"><div class="tl-hl-ico">👷</div>Erfahrene Profis</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-step reveal">
+        <div class="tl-dot">4</div>
+        <div class="tl-content">
+          <div class="tl-tag">Abschluss</div>
+          <div class="tl-title">Inbetriebnahme, Einweisung &amp; Service</div>
+          <div class="tl-desc">Nach der Installation nehmen wir die Anlage in Betrieb, weisen Sie grundlich in die Bedienung ein und ubergeben alle Dokumentationen. Danach stehen wir Ihnen mit Wartung und Kundendienst langfristig zur Seite.</div>
+          <div class="tl-highlights">
+            <div class="tl-hl"><div class="tl-hl-ico">✅</div>Funktionstest</div>
+            <div class="tl-hl"><div class="tl-hl-ico">📚</div>Einweisung</div>
+            <div class="tl-hl"><div class="tl-hl-ico">🔧</div>Langfristiger Service</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="why-section">
+  <div class="why-in">
+    <div class="shead">
+      <div class="seye reveal">Warum wir?</div>
+      <h2 class="reveal d1">Was uns <em>auszeichnet.</em></h2>
+      <p class="reveal d2">Vertrauen entsteht durch Transparenz, Kompetenz und Zuverlassigkeit — dafur stehen wir mit unserem Namen.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card reveal">
+        <div class="why-ico">🏆</div>
+        <div class="why-title">15+ Jahre Erfahrung</div>
+        <div class="why-desc">Uber 500 erfolgreich abgeschlossene Projekte in Dusseldorf, Koln und dem gesamten Rheinland.</div>
+      </div>
+      <div class="why-card reveal d1">
+        <div class="why-ico">⚡</div>
+        <div class="why-title">24h Reaktionszeit</div>
+        <div class="why-desc">Ihre Anfrage wird innerhalb eines Werktages beantwortet — bei Storungen sind wir noch schneller.</div>
+      </div>
+      <div class="why-card reveal d2">
+        <div class="why-ico">💎</div>
+        <div class="why-title">Festpreisgarantie</div>
+        <div class="why-desc">Keine versteckten Kosten, keine Nachforderungen. Sie wissen vorab genau, was Ihr Projekt kostet.</div>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-ico">🛡️</div>
+        <div class="why-title">Zertifizierte Qualitat</div>
+        <div class="why-desc">Geschultes Fachpersonal, zertifiziert nach aktuellen Normen und Vorschriften.</div>
+      </div>
+      <div class="why-card reveal d1">
+        <div class="why-ico">🤝</div>
+        <div class="why-title">Personliche Betreuung</div>
+        <div class="why-desc">Ein fester Ansprechpartner von Anfang bis Ende — keine anonymen Hotlines.</div>
+      </div>
+      <div class="why-card reveal d2">
+        <div class="why-ico">🌱</div>
+        <div class="why-title">Nachhaltige Losungen</div>
+        <div class="why-desc">Wir setzen auf energieeffiziente Technik, die Ihren Geldbeutel und die Umwelt schont.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="ctasec">
+  <div class="ctacard reveal">
+    <div class="cta-txt">
+      <div class="cta-sm">Bereit loszulegen?</div>
+      <h2 class="cta-h">Starten Sie jetzt<br>Ihr <em>Klimaprojekt.</em></h2>
+      <p class="cta-sub">Kostenlose Beratung · transparentes Angebot<br>schnelle Umsetzung — wir sind fur Sie da.</p>
+    </div>
+    <div class="cta-acts">
+      <a href="kontakt.html" class="bcta">
+        Anfrage stellen
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="tel:+49" class="bghost">Oder direkt anrufen</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-grid">
+    <div>
+      <div class="flogo"><img src="images/logoweiß.png" alt="Klimatechnik Völker" onerror="this.style.display='none'"></div>
+      <p class="fabout">Ihr zuverlassiger Fachbetrieb fur Klimaanlagen, Warmepumpen und Heizungsanlagen in Dusseldorf, Koln und dem gesamten Rheinland.</p>
+    </div>
+    <div>
+      <div class="fh">Navigation</div>
+      <ul class="flinks"><li><a href="index.html">Start</a></li><li><a href="leistungen.html">Leistungen</a></li><li><a href="ablauf.html">Ablauf</a></li><li><a href="referenzen.html">Referenzen</a></li><li><a href="kontakt.html">Kontakt</a></li></ul>
+    </div>
+    <div>
+      <div class="fh">Leistungen</div>
+      <ul class="flinks"><li><a href="leistungen.html#klimaanlagen">Klimaanlagen</a></li><li><a href="leistungen.html#waermepumpen">Wärmepumpen</a></li><li><a href="leistungen.html#heizung">Heizung</a></li><li><a href="leistungen.html#sanierung">Energetische Sanierung</a></li><li><a href="leistungen.html#wartung">Wartung &amp; Service</a></li></ul>
+    </div>
+    <div>
+      <div class="fh">Kontakt</div>
+      <div class="fci-row"><span class="fci">📍</span><span>Dusseldorf &amp; Koln und Umgebung</span></div>
+      <div class="fci-row"><span class="fci">🌐</span><a href="http://www.klima-voelker.de" style="color:inherit;text-decoration:none">www.klima-voelker.de</a></div>
+      <div class="fci-row"><span class="fci">⏰</span><span>Mo – Fr  7:00 – 18:00 Uhr</span></div>
+    </div>
+  </div>
+  <div class="fbot">
+    <span>&copy; 2026 Klimatechnik Völker. Alle Rechte vorbehalten.</span>
+    <span>Impressum &middot; Datenschutz</span>
+  </div>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 60), {passive:true});
+
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); }});
+}, {threshold:.12});
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.getElementById('navLinks');
+const mobOverlay = document.getElementById('mobOverlay');
+if(hamburger){
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    navLinks.classList.toggle('open');
+    mobOverlay.classList.toggle('open');
+  });
+  mobOverlay.addEventListener('click', () => {
+    hamburger.classList.remove('active');
+    navLinks.classList.remove('open');
+    mobOverlay.classList.remove('open');
+  });
+}
+</script>
+</body>
+</html>

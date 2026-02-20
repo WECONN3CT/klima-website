@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Klimatechnik Völker – Ihr Spezialist für modernes Raumklima</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+
+:root{
+  --sky:#e8f4fb;--sky2:#d4ecf7;--white:#ffffff;
+  --blue:#0077c8;--blue2:#005fa3;--cyan:#00b4e0;
+  --warm:#ff6b35;--warm2:#e55a28;
+  --ink:#0d1f36;--ink2:#1a3050;--muted:#7a95ad;
+  --border:rgba(0,119,200,0.12);
+  --shadow:0 20px 60px rgba(0,100,180,0.10);
+}
+
+body{font-family:'Outfit',sans-serif;background:var(--white);color:var(--ink);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--sky)}
+::-webkit-scrollbar-thumb{background:var(--blue);border-radius:2px}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  padding:24px 64px;
+  display:flex;justify-content:space-between;align-items:center;
+  transition:all .5s cubic-bezier(.25,.46,.45,.94);
+}
+nav:not(.scrolled) .nav-links a{color:#fff}
+nav:not(.scrolled) .nav-phone{background:rgba(255,255,255,.15);color:#fff;box-shadow:0 0 0 1px rgba(255,255,255,.3)}
+nav:not(.scrolled) .nav-phone:hover{background:rgba(255,255,255,.25)}
+nav:not(.scrolled) .hamburger span{background:#fff}
+nav.scrolled{
+  padding:16px 64px;
+  background:rgba(255,255,255,.9);
+  backdrop-filter:blur(20px);
+  box-shadow:0 1px 0 var(--border),var(--shadow);
+}
+.logo img{height:64px}
+.nav-links{position:absolute;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:36px;list-style:none}
+.nav-links a{color:var(--ink);text-decoration:none;font-size:14px;font-weight:500;opacity:.65;transition:opacity .3s}
+.nav-links a:hover{opacity:1}
+.nav-btn{
+  background:var(--blue);color:#fff!important;opacity:1!important;
+  padding:11px 26px;border-radius:100px;font-weight:600!important;
+  box-shadow:0 4px 18px rgba(0,119,200,.3);
+  transition:background .3s,transform .2s,box-shadow .3s!important;
+}
+.nav-btn:hover{background:var(--blue2)!important;transform:translateY(-1px);box-shadow:0 8px 28px rgba(0,119,200,.35)!important}
+
+.nav-phone{
+  display:flex;align-items:center;gap:10px;
+  background:var(--white);margin-left:auto;
+  padding:8px 22px 8px 8px;border-radius:100px;
+  text-decoration:none;color:var(--ink);
+  font-size:14px;font-weight:600;letter-spacing:.02em;
+  box-shadow:0 0 0 3px var(--blue),0 4px 18px rgba(0,119,200,.15);
+  transition:transform .2s,box-shadow .3s;
+  white-space:nowrap;z-index:10;
+}
+.nav-phone:hover{transform:translateY(-1px);box-shadow:0 0 0 3px var(--blue2),0 8px 28px rgba(0,119,200,.25)}
+.nav-phone-ico{
+  width:36px;height:36px;border-radius:50%;
+  background:linear-gradient(135deg,var(--blue),var(--cyan));
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.nav-phone-ico svg{width:16px;height:16px}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;position:relative;overflow:hidden;
+  display:flex;align-items:center;
+  background:#0a1628;
+}
+.hero-video{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;
+}
+.hero::after{
+  content:'';position:absolute;inset:0;z-index:1;
+  background:rgba(0,0,0,.55);
+}
+.orb{position:absolute;border-radius:50%;pointer-events:none;z-index:2}
+.orb1{width:700px;height:700px;background:radial-gradient(circle,rgba(0,180,224,.14) 0%,transparent 70%);top:-200px;right:-150px;animation:od 12s ease-in-out infinite}
+.orb2{width:450px;height:450px;background:radial-gradient(circle,rgba(0,119,200,.10) 0%,transparent 70%);bottom:-100px;left:-80px;animation:od 9s ease-in-out infinite reverse}
+.orb3{width:200px;height:200px;background:radial-gradient(circle,rgba(255,107,53,.12) 0%,transparent 70%);top:30%;right:30%;animation:od 7s ease-in-out infinite 2s}
+@keyframes od{0%,100%{transform:translate(0,0)}33%{transform:translate(20px,-25px)}66%{transform:translate(-15px,15px)}}
+
+.hero-inner{
+  position:relative;z-index:3;max-width:1320px;margin:0 auto;width:100%;
+  padding:120px 64px 80px;
+  display:grid;grid-template-columns:1.1fr .9fr;gap:80px;align-items:center;
+}
+
+.eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--cyan);
+  margin-bottom:22px;
+  opacity:0;animation:ru .7s .1s cubic-bezier(.22,1,.36,1) forwards;
+}
+.eyebrow-bar{width:28px;height:2px;background:linear-gradient(to right,var(--cyan),#60cfff);border-radius:1px}
+
+.hero-h1{
+  font-family:'Playfair Display',Georgia,serif;
+  font-size:clamp(52px,5.5vw,88px);line-height:1.05;font-weight:700;color:#fff;
+  opacity:0;animation:ru .7s .25s cubic-bezier(.22,1,.36,1) forwards;
+}
+.hero-h1 em{font-style:italic;color:var(--cyan)}
+.hero-h1 .ww{color:var(--warm)}
+
+.hero-desc{
+  margin-top:26px;font-size:17px;font-weight:300;color:rgba(255,255,255,.7);line-height:1.8;max-width:480px;
+  opacity:0;animation:ru .7s .4s cubic-bezier(.22,1,.36,1) forwards;
+}
+
+.hero-acts{
+  display:flex;gap:14px;align-items:center;margin-top:42px;
+  opacity:0;animation:ru .7s .55s cubic-bezier(.22,1,.36,1) forwards;
+}
+.btn-main{
+  background:linear-gradient(135deg,var(--blue),var(--cyan));
+  color:#fff;padding:16px 34px;border-radius:100px;
+  font-size:15px;font-weight:600;text-decoration:none;
+  display:inline-flex;align-items:center;gap:8px;
+  box-shadow:0 8px 30px rgba(0,119,200,.3);
+  transition:transform .3s,box-shadow .3s;
+}
+.btn-main:hover{transform:translateY(-3px);box-shadow:0 14px 40px rgba(0,119,200,.4)}
+.btn-main svg{transition:transform .3s}
+.btn-main:hover svg{transform:translateX(4px)}
+.btn-ghost{color:#fff;opacity:.6;font-size:15px;font-weight:500;text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:opacity .3s}
+.btn-ghost:hover{opacity:1}
+
+.hero-stats{
+  grid-column:1/-1;display:flex;gap:0;margin-top:-20px;padding-top:34px;border-top:1px solid rgba(255,255,255,.15);
+  opacity:0;animation:ru .7s .7s cubic-bezier(.22,1,.36,1) forwards;
+}
+.hstat{flex:1;padding-right:28px;border-right:1px solid rgba(255,255,255,.15)}
+.hstat:last-child{border-right:none;padding-right:0;padding-left:28px}
+.hstat:nth-child(2){padding-left:28px}
+.hstat-n{font-family:'Playfair Display',serif;font-size:40px;font-weight:700;color:var(--cyan);line-height:1}
+.hstat-l{font-size:12px;color:rgba(255,255,255,.5);letter-spacing:.04em;margin-top:4px}
+
+.hero-pic{
+  position:relative;
+  display:flex;align-items:center;justify-content:center;
+  transform:translateY(160px);
+  opacity:0;animation:rr .9s .4s cubic-bezier(.22,1,.36,1) forwards;
+}
+.hero-pic img{
+  display:block;width:215%;max-width:1280px;height:auto;
+  -webkit-mask-image:linear-gradient(to bottom, black 85%, transparent 100%);
+  mask-image:linear-gradient(to bottom, black 85%, transparent 100%);
+}
+
+/* wave svg at hero bottom */
+.hero-wave{position:absolute;bottom:-2px;left:0;right:0;pointer-events:none;z-index:4}
+
+@keyframes ru{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes rr{from{opacity:0;transform:translateX(32px)}to{opacity:1;transform:translateX(0)}}
+
+/* ── MARQUEE ── */
+.mq{background:transparent;padding:16px 0;overflow:hidden;white-space:nowrap}
+.mq-track{display:inline-flex;gap:56px;animation:tk 22s linear infinite}
+@keyframes tk{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.mtag{font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);display:inline-flex;align-items:center;gap:24px}
+.mtag::after{content:'•';opacity:.3}
+
+/* ── INTRO ── */
+.intro{background:var(--white);padding:130px 64px}
+.intro-in{max-width:1320px;margin:0 auto;display:grid;grid-template-columns:.9fr 1.1fr;gap:100px;align-items:center}
+
+.imgwrap{position:relative}
+.img-bg{position:absolute;top:-30px;left:-30px;right:30px;bottom:30px;background:linear-gradient(135deg,var(--sky2),var(--sky));border-radius:40px}
+.main-img{position:relative;z-index:1;width:100%;height:520px;object-fit:cover;border-radius:28px;box-shadow:0 24px 60px rgba(0,80,160,.15);display:block}
+.img-badge{
+  position:absolute;z-index:2;bottom:-24px;left:-24px;
+  background:linear-gradient(135deg,var(--warm),var(--warm2));
+  color:#fff;padding:22px 28px;border-radius:24px;
+  box-shadow:0 12px 36px rgba(255,107,53,.35);text-align:center;
+}
+.ib-n{font-family:'Playfair Display',serif;font-size:44px;font-weight:700;line-height:1}
+.ib-t{font-size:12px;font-weight:600;opacity:.85;margin-top:4px;letter-spacing:.04em}
+
+.seye{font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--blue);display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.seye::before{content:'';width:28px;height:2px;background:linear-gradient(to right,var(--blue),var(--cyan));border-radius:1px}
+.sh2{font-family:'Playfair Display',serif;font-size:clamp(38px,4vw,56px);line-height:1.1;font-weight:700}
+.sh2 em{font-style:italic;color:var(--blue)}
+.sp{font-size:16px;font-weight:300;color:var(--muted);line-height:1.85;margin-top:22px}
+
+.cklist{list-style:none;margin-top:34px;display:flex;flex-direction:column;gap:16px}
+.cki{display:flex;align-items:flex-start;gap:14px}
+.ckdot{
+  width:22px;height:22px;border-radius:50%;flex-shrink:0;margin-top:1px;
+  background:linear-gradient(135deg,var(--blue),var(--cyan));
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 12px rgba(0,119,200,.25);
+}
+.ckdot svg{width:10px;color:#fff}
+.cki-t{font-size:15px;font-weight:600;margin-bottom:2px}
+.cki-s{font-size:13px;color:var(--muted);line-height:1.6}
+
+/* ── SERVICES ── */
+.svc-section{
+  position:relative;
+  background:var(--white);
+  padding:0;overflow:hidden;
+}
+.svc-wave-top,.svc-wave-bot{display:block;line-height:0}
+.svc-wave-top svg,.svc-wave-bot svg{display:block;width:100%;height:auto}
+.svc-body{
+  position:relative;
+  background:linear-gradient(180deg,#f4f9fd 0%,#edf4fa 50%,#f4f9fd 100%);
+  padding:80px 0 100px;overflow:hidden;
+}
+.svc-deco{position:absolute;border-radius:50%;pointer-events:none;z-index:0}
+.svc-deco1{width:600px;height:600px;background:radial-gradient(circle,rgba(0,119,200,.04) 0%,transparent 70%);top:-250px;right:-200px}
+.svc-deco2{width:450px;height:450px;background:radial-gradient(circle,rgba(0,180,224,.035) 0%,transparent 70%);bottom:-150px;left:-180px}
+
+.svc-in{max-width:1320px;margin:0 auto;padding:0 64px}
+
+.shead{text-align:center;padding-bottom:70px}
+.shead .seye{justify-content:center}
+.shead .seye::before,.shead .seye::after{content:'';flex:0 0 28px;height:2px;background:linear-gradient(to right,var(--blue),var(--cyan));border-radius:1px}
+.shead h2{font-family:'Playfair Display',serif;font-size:clamp(36px,4vw,56px);font-weight:700;line-height:1.1}
+.shead h2 em{color:var(--blue);font-style:italic}
+.shead p{font-size:16px;font-weight:300;color:var(--muted);line-height:1.8;max-width:560px;margin:18px auto 0}
+
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+
+.scard{
+  background:var(--white);border-radius:28px;padding:44px 36px;
+  position:relative;overflow:hidden;
+  box-shadow:0 4px 24px rgba(0,80,160,.07);
+  transition:transform .4s cubic-bezier(.22,1,.36,1),box-shadow .4s;
+  opacity:0;transform:translateY(28px);
+}
+.scard.visible{opacity:1;transform:translateY(0)}
+.scard:hover{transform:translateY(-8px);box-shadow:0 20px 60px rgba(0,80,160,.14)}
+.scard::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:4px;
+  background:linear-gradient(to right,var(--blue),var(--cyan));
+  border-radius:28px 28px 0 0;
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .4s cubic-bezier(.22,1,.36,1);
+}
+.scard:hover::before{transform:scaleX(1)}
+.scard::after{
+  content:'';position:absolute;bottom:-40px;right:-40px;
+  width:150px;height:150px;border-radius:50%;
+  background:radial-gradient(circle,rgba(0,180,224,.07) 0%,transparent 70%);
+  pointer-events:none;
+}
+.sico{
+  width:60px;height:60px;border-radius:18px;
+  background:linear-gradient(135deg,var(--sky),var(--sky2));
+  display:flex;align-items:center;justify-content:center;
+  font-size:26px;margin-bottom:26px;transition:background .3s;
+}
+.scard:hover .sico{background:linear-gradient(135deg,rgba(0,119,200,.12),rgba(0,180,224,.15))}
+.sname{font-size:19px;font-weight:600;margin-bottom:12px;line-height:1.3}
+.sdesc{font-size:14px;color:var(--muted);line-height:1.8}
+.smore{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:13px;font-weight:600;color:var(--blue);text-decoration:none;
+  margin-top:24px;opacity:0;transition:opacity .3s,gap .3s;
+}
+.scard:hover .smore{opacity:1;gap:10px}
+
+/* ── PROCESS ── */
+.proc{background:var(--white);padding:120px 64px}
+.proc-in{max-width:1320px;margin:0 auto}
+.proc-steps{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:0;margin-top:70px;position:relative;
+}
+.proc-steps::before{
+  content:'';position:absolute;
+  top:36px;left:10%;right:10%;height:2px;
+  background:linear-gradient(to right,var(--blue),var(--cyan),var(--warm));
+  border-radius:1px;z-index:0;
+}
+.pstep{
+  text-align:center;padding:0 24px;position:relative;z-index:1;
+  opacity:0;transform:translateY(20px);
+  transition:opacity .6s,transform .6s;
+}
+.pstep.visible{opacity:1;transform:translateY(0)}
+.pcircle{
+  width:72px;height:72px;border-radius:50%;background:var(--white);
+  border:3px solid var(--blue);
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 28px;
+  font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--blue);
+  box-shadow:0 0 0 8px var(--sky);
+  transition:background .3s,color .3s,border-color .3s;
+}
+.pstep:hover .pcircle{background:linear-gradient(135deg,var(--blue),var(--cyan));color:#fff;border-color:transparent}
+.ptitle{font-size:16px;font-weight:600;margin-bottom:10px}
+.pdesc{font-size:13px;color:var(--muted);line-height:1.7}
+
+/* ── GALLERY ── */
+.gal-section{
+  background:linear-gradient(180deg,var(--white) 0%,var(--sky) 100%);
+  padding:0 0 140px;
+}
+.gal-section::before{
+  content:'';display:block;height:80px;
+  background:var(--white);
+  clip-path:ellipse(60% 100% at 50% 0%);
+  margin-bottom:-1px;
+}
+.gal-in{max-width:1320px;margin:0 auto;padding:0 64px}
+
+.mosaic{
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  grid-template-rows:240px 240px;
+  gap:16px;
+  margin-top:64px;
+}
+.gitem{border-radius:22px;overflow:hidden;position:relative;box-shadow:0 8px 30px rgba(0,80,160,.10);cursor:pointer}
+.gitem:nth-child(1){grid-column:1/6;grid-row:1/3}
+.gitem:nth-child(2){grid-column:6/9;grid-row:1/2}
+.gitem:nth-child(3){grid-column:9/13;grid-row:1/2}
+.gitem:nth-child(4){grid-column:6/10;grid-row:2/3}
+.gitem:nth-child(5){grid-column:10/13;grid-row:2/3}
+.gitem img{width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.25,.46,.45,.94)}
+.gitem:hover img{transform:scale(1.08)}
+.gov{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(13,31,54,.6) 0%,transparent 50%);
+  opacity:0;transition:opacity .4s;
+  display:flex;align-items:flex-end;padding:24px;
+}
+.gitem:hover .gov{opacity:1}
+.gtag{
+  font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:#fff;background:rgba(255,255,255,.15);backdrop-filter:blur(8px);
+  padding:6px 14px;border-radius:100px;
+}
+
+/* ── CTA ── */
+.ctasec{background:var(--white);padding:40px 64px 120px}
+.ctacard{
+  max-width:1320px;margin:0 auto;
+  background:linear-gradient(135deg,var(--ink) 0%,var(--ink2) 100%);
+  border-radius:36px;padding:80px;
+  display:flex;justify-content:space-between;align-items:center;gap:60px;
+  overflow:hidden;position:relative;
+}
+.ctacard::before{content:'';position:absolute;top:-60px;right:-60px;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(0,180,224,.15) 0%,transparent 60%)}
+.ctacard::after{content:'';position:absolute;bottom:-80px;left:200px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(255,107,53,.1) 0%,transparent 60%)}
+.cta-txt{position:relative;z-index:1}
+.cta-sm{font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--cyan);margin-bottom:16px}
+.cta-h{font-family:'Playfair Display',serif;font-size:clamp(30px,3.5vw,50px);color:#fff;font-weight:700;line-height:1.2}
+.cta-h em{color:var(--cyan);font-style:italic}
+.cta-sub{font-size:15px;color:rgba(255,255,255,.5);margin-top:12px;line-height:1.7}
+.cta-acts{position:relative;z-index:1;display:flex;flex-direction:column;gap:14px;align-items:flex-start;flex-shrink:0}
+.bcta{
+  background:linear-gradient(135deg,var(--cyan),var(--blue));color:#fff;
+  padding:18px 40px;border-radius:100px;font-size:15px;font-weight:600;
+  text-decoration:none;display:inline-flex;align-items:center;gap:8px;
+  box-shadow:0 8px 30px rgba(0,180,224,.35);
+  transition:transform .3s,box-shadow .3s;white-space:nowrap;
+}
+.bcta:hover{transform:translateY(-3px);box-shadow:0 14px 40px rgba(0,180,224,.45)}
+.bghost{color:rgba(255,255,255,.5);font-size:14px;text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:color .3s}
+.bghost:hover{color:#fff}
+
+/* ── FOOTER ── */
+footer{background:var(--ink);padding:90px 64px 48px;position:relative;overflow:hidden}
+footer::before{content:'';position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:800px;height:200px;background:radial-gradient(ellipse,rgba(0,180,224,.06) 0%,transparent 70%);pointer-events:none}
+.foot-grid{max-width:1320px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1.2fr;gap:60px;padding-bottom:60px;border-bottom:1px solid rgba(255,255,255,.07)}
+.flogo img{height:64px;margin-bottom:20px}
+.fabout{font-size:14px;color:rgba(255,255,255,.35);line-height:1.85}
+.fh{font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--cyan);margin-bottom:22px}
+.flinks{list-style:none}
+.flinks li{margin-bottom:12px}
+.flinks a{font-size:14px;color:rgba(255,255,255,.4);text-decoration:none;transition:color .3s}
+.flinks a:hover{color:#fff}
+.fci-row{display:flex;gap:12px;align-items:flex-start;font-size:14px;color:rgba(255,255,255,.4);margin-bottom:14px}
+.fci{color:var(--cyan);margin-top:2px;font-size:16px}
+.fbot{max-width:1320px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;padding-top:36px;font-size:12px;color:rgba(255,255,255,.2)}
+
+/* ── REVEAL ── */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1100px){
+  nav,nav.scrolled{padding:18px 30px}
+  .hero-inner{grid-template-columns:1fr;padding:140px 40px 100px}
+  .hero-pic{display:none}
+  .intro{padding:100px 40px}
+  .intro-in{grid-template-columns:1fr;gap:60px}
+  .svc-in,.gal-in{padding:0 40px}
+  .svc-grid{grid-template-columns:repeat(2,1fr)}
+  .proc{padding:100px 40px}
+  .proc-steps{grid-template-columns:repeat(2,1fr);gap:48px}
+  .proc-steps::before{display:none}
+  .mosaic{grid-template-columns:1fr 1fr;grid-template-rows:auto}
+  .gitem:nth-child(n){grid-column:auto;grid-row:auto;height:200px}
+  .ctasec{padding:40px 40px 100px}
+  .ctacard{padding:60px 50px;flex-direction:column;text-align:center;align-items:center}
+  .cta-acts{align-items:center}
+  footer{padding:70px 40px 40px}
+  .foot-grid{grid-template-columns:1fr 1fr;gap:40px}
+}
+@media(max-width:700px){
+  .svc-grid{grid-template-columns:1fr}
+  .hero-inner{padding:120px 24px 60px}
+  .hero-h1{font-size:clamp(34px,8vw,52px)}
+  .hero-desc{font-size:15px}
+  .hero-stats{flex-direction:column;gap:20px}
+  .hstat{border:none!important;padding:0!important}
+  .hstat-n{font-size:32px}
+  .intro{padding:60px 24px}
+  .intro-in{gap:40px}
+  .svc-in,.gal-in{padding:0 24px}
+  .svc-grid{gap:16px}
+  .svc-card{padding:32px 24px}
+  .proc{padding:60px 24px}
+  .proc-steps{grid-template-columns:1fr;gap:32px}
+  .mosaic{grid-template-columns:1fr}
+  .gitem:nth-child(n){height:180px}
+  .ctasec{padding:24px 24px 60px}
+  .ctacard{padding:40px 24px;gap:32px;border-radius:24px}
+  .cta-h{font-size:clamp(24px,6vw,36px)}
+  .bcta{padding:14px 28px;font-size:14px}
+  footer{padding:50px 24px 30px}
+  .foot-grid{grid-template-columns:1fr;gap:32px}
+  .flogo img{height:52px}
+  .nav-links{display:none}
+  .nav-phone-num{display:none}
+  .nav-phone{padding:6px;box-shadow:0 0 0 2px var(--blue),0 4px 12px rgba(0,119,200,.15)}
+  .logo img{height:48px}
+}
+@media(max-width:400px){
+  .hero-inner{padding:110px 16px 50px}
+  .hero-h1{font-size:clamp(28px,8vw,40px)}
+  .hero-acts{flex-direction:column;gap:10px;align-items:stretch}
+  .btn-main{text-align:center;justify-content:center;padding:14px 24px;font-size:14px}
+  .hstat-n{font-size:28px}
+  .svc-in,.gal-in{padding:0 16px}
+  .svc-card{padding:28px 20px}
+  .intro{padding:50px 16px}
+  .proc{padding:50px 16px}
+  .ctasec{padding:16px 16px 50px}
+  .ctacard{padding:32px 20px}
+  footer{padding:40px 16px 24px}
+}
+
+/* ── HAMBURGER MENU ── */
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:8px;z-index:300}
+.hamburger span{display:block;width:24px;height:2px;background:var(--ink);border-radius:2px;transition:all .3s}
+@media(max-width:700px){
+  .hamburger{display:flex}
+  .nav-links.open{
+    display:flex;flex-direction:column;
+    position:fixed;top:0;right:0;bottom:0;
+    width:280px;background:var(--white);
+    padding:100px 40px 40px;gap:8px;
+    box-shadow:-10px 0 40px rgba(0,0,0,.1);
+    z-index:250;
+    animation:slideIn .3s ease;
+  }
+  .nav-links.open a{font-size:17px;opacity:.8;padding:12px 0;border-bottom:1px solid var(--border)}
+  .nav-links.open .nav-btn{margin-top:16px;text-align:center;border-bottom:none}
+  .mob-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.3);z-index:240}
+  .mob-overlay.open{display:block}
+  .hamburger.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+  .hamburger.active span:nth-child(2){opacity:0}
+  .hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+}
+@keyframes slideIn{from{transform:translateX(100%)}to{transform:translateX(0)}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="logo">
+    <a href="index.html"><img id="nav-logo" src="images/logoweiß.png" alt="Klimatechnik Völker" onerror="this.style.display='none'"></a>
+  </div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html" class="active">Start</a></li>
+    <li><a href="leistungen.html">Leistungen</a></li>
+    <li><a href="ablauf.html">Ablauf</a></li>
+    <li><a href="referenzen.html">Referenzen</a></li>
+    <li><a href="kontakt.html" class="nav-btn">Anfrage stellen</a></li>
+  </ul>
+  <a href="tel:022836970855" class="nav-phone">
+    <span class="nav-phone-ico"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81 19.79 19.79 0 01.18 2.18 2 2 0 012.18 0h3a2 2 0 012 1.72c.128.96.36 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.13 6.13l1.27-1.27a2 2 0 012.11-.45c.907.34 1.85.572 2.81.7A2 2 0 0122 16.92z"/></svg></span>
+    <span class="nav-phone-num">0228 36970 855</span>
+  </a>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="mob-overlay" id="mobOverlay"></div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <video class="hero-video" autoplay muted loop playsinline>
+    <source src="videos/hero.mp4" type="video/mp4">
+  </video>
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+
+  <div class="hero-inner">
+    <div>
+      <div class="eyebrow">
+        <span class="eyebrow-bar"></span>
+        Fachbetrieb in Düsseldorf &amp; Köln
+      </div>
+      <h1 class="hero-h1">
+        Ihr Spezialist<br>
+        für <em>modernes</em><br>
+        <span class="ww">Raumklima.</span>
+      </h1>
+      <p class="hero-desc">Klimaanlagen, Wärmepumpen, Heizungssysteme — professionell geplant, präzise installiert und zuverlässig gewartet. Für Ihr Zuhause und Ihren Betrieb.</p>
+      <div class="hero-acts">
+        <a href="#kontakt" class="btn-main">
+          Kostenlos anfragen
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#leistungen" class="btn-ghost">
+          Leistungen ansehen
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 9l-7 7-7-7"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-pic">
+      <img src="images/heropicture.png" alt="Klimatechnik Völker">
+    </div>
+
+    <div class="hero-stats">
+      <div class="hstat">
+        <div class="hstat-n">15+</div>
+        <div class="hstat-l">Jahre Erfahrung</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-n">500+</div>
+        <div class="hstat-l">Projekte</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-n">100%</div>
+        <div class="hstat-l">Kundenzufriedenheit</div>
+      </div>
+    </div>
+  </div>
+
+  <svg class="hero-wave" viewBox="0 0 1440 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,30 C480,100 960,0 1440,50 L1440,90 L0,90 Z" fill="white"/>
+  </svg>
+</section>
+
+<!-- MARQUEE -->
+<div class="mq">
+  <div class="mq-track">
+    <span class="mtag">Klimaanlagen</span><span class="mtag">Wärmepumpen</span><span class="mtag">Heizungsinstallation</span><span class="mtag">Split-Geräte</span><span class="mtag">VRV-Anlagen</span><span class="mtag">Energetische Sanierung</span><span class="mtag">Kundendienst</span><span class="mtag">Gewerbe &amp; Industrie</span>
+    <span class="mtag">Klimaanlagen</span><span class="mtag">Wärmepumpen</span><span class="mtag">Heizungsinstallation</span><span class="mtag">Split-Geräte</span><span class="mtag">VRV-Anlagen</span><span class="mtag">Energetische Sanierung</span><span class="mtag">Kundendienst</span><span class="mtag">Gewerbe &amp; Industrie</span>
+  </div>
+</div>
+
+<!-- INTRO / ÜBER UNS -->
+<section class="intro">
+  <div class="intro-in">
+    <div class="imgwrap reveal">
+      <div class="img-bg"></div>
+      <img class="main-img" src="https://le-cdn.website-editor.net/5d03339e08e143f3a5b3bd7420c7e711/dms3rep/multi/opt/WhatsApp-Bild-2024-03-07-um-08.31.18_9a9cc26b-439w.png" alt="Unser Team" onerror="this.src='https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&q=80'">
+      <div class="img-badge">
+        <div class="ib-n">15+</div>
+        <div class="ib-t">Jahre Expertise</div>
+      </div>
+    </div>
+    <div>
+      <div class="seye reveal">Über uns</div>
+      <h2 class="sh2 reveal d1">Klimatechnik mit<br><em>Leidenschaft</em> &amp;<br>Präzision.</h2>
+      <p class="sp reveal d2">Als zuverlässiger Partner rund um Klimaanlagen und Heizungssysteme verbinden wir technische Expertise mit echtem Handwerksstolz — für Lösungen, auf die Sie langfristig zählen können.</p>
+      <ul class="cklist">
+        <li class="cki reveal d2">
+          <div class="ckdot"><svg viewBox="0 0 12 10" fill="none" stroke="white" stroke-width="2.5"><polyline points="1,5 4,9 11,1"/></svg></div>
+          <div><div class="cki-t">Zertifizierter Fachbetrieb</div><div class="cki-s">Regelmäßig geschult, nach geltenden Normen zertifiziert — Qualität, auf die Sie bauen können.</div></div>
+        </li>
+        <li class="cki reveal d3">
+          <div class="ckdot"><svg viewBox="0 0 12 10" fill="none" stroke="white" stroke-width="2.5"><polyline points="1,5 4,9 11,1"/></svg></div>
+          <div><div class="cki-t">Schnelle Reaktionszeiten</div><div class="cki-s">Bei Störungen oder Defekten sind wir schnellstmöglich bei Ihnen — zuverlässig und unkompliziert.</div></div>
+        </li>
+        <li class="cki reveal d4">
+          <div class="ckdot"><svg viewBox="0 0 12 10" fill="none" stroke="white" stroke-width="2.5"><polyline points="1,5 4,9 11,1"/></svg></div>
+          <div><div class="cki-t">Maßgeschneiderte Lösungen</div><div class="cki-s">Individuelle Planung für maximale Effizienz — exakt abgestimmt auf Ihre Räume und Anforderungen.</div></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<div class="svc-section" id="leistungen">
+  <div class="svc-wave-top">
+    <svg viewBox="0 0 1440 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,0 L0,40 Q360,120 720,60 Q1080,0 1440,50 L1440,0 Z" fill="white"/>
+      <path d="M0,40 Q360,120 720,60 Q1080,0 1440,50 L1440,120 L0,120 Z" fill="#f4f9fd"/>
+    </svg>
+  </div>
+  <div class="svc-body">
+    <div class="svc-deco svc-deco1"></div>
+    <div class="svc-deco svc-deco2"></div>
+    <div class="svc-in">
+      <div class="shead">
+        <div class="seye reveal">Leistungen</div>
+        <h2 class="reveal d1">Alles aus <em>einer Hand.</em></h2>
+        <p class="reveal d2">Von der Beratung über die Installation bis zur Wartung — wir begleiten Sie durch jeden Schritt.</p>
+      </div>
+      <div class="svc-grid">
+        <div class="scard"><div class="sico">❄️</div><div class="sname">Klimaanlagen</div><div class="sdesc">Split-Geräte, Multi-Split und VRV-Systeme für Wohn- und Gewerbebereiche. Präzise Planung und saubere Montage.</div><a href="leistungen.html#klimaanlagen" class="smore">Mehr erfahren →</a></div>
+        <div class="scard"><div class="sico">🔥</div><div class="sname">Wärmepumpen</div><div class="sdesc">Energieeffiziente Wärmepumpensysteme als moderne Heizlösung — Luft-Luft, Luft-Wasser und Erdwärme.</div><a href="leistungen.html#waermepumpen" class="smore">Mehr erfahren →</a></div>
+        <div class="scard"><div class="sico">🏠</div><div class="sname">Heizungsinstallation</div><div class="sdesc">Neubau und Sanierung: Gastherme, Etagenheizung, Fußbodenheizung — alles aus einer Hand.</div><a href="leistungen.html#heizung" class="smore">Mehr erfahren →</a></div>
+        <div class="scard"><div class="sico">⚡</div><div class="sname">Energetische Sanierung</div><div class="sdesc">Alte Anlagen modernisieren, Kosten senken, Fördermittel nutzen. Wir beraten und begleiten Sie ganzheitlich.</div><a href="leistungen.html#sanierung" class="smore">Mehr erfahren →</a></div>
+        <div class="scard"><div class="sico">🏢</div><div class="sname">Gewerbe &amp; Industrie</div><div class="sdesc">Leistungsstarke Klimasysteme für Büros, Hallen und Restaurants. Maßgeschneidert und effizient.</div><a href="leistungen.html#gewerbe" class="smore">Mehr erfahren →</a></div>
+        <div class="scard"><div class="sico">🔧</div><div class="sname">Wartung &amp; Reparatur</div><div class="sdesc">Schneller Kundendienst, Wartungsverträge und Reparaturen für alle gängigen Marken und Systeme.</div><a href="leistungen.html#wartung" class="smore">Mehr erfahren →</a></div>
+      </div>
+    </div>
+  </div>
+  <div class="svc-wave-bot">
+    <svg viewBox="0 0 1440 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,0 Q360,100 720,50 Q1080,0 1440,70 L1440,120 L0,120 Z" fill="#f4f9fd"/>
+      <path d="M0,60 Q360,120 720,80 Q1080,40 1440,90 L1440,120 L0,120 Z" fill="white"/>
+    </svg>
+  </div>
+</div>
+
+<!-- PROCESS -->
+<section class="proc" id="prozess">
+  <div class="proc-in">
+    <div class="shead">
+      <div class="seye reveal">So läuft's ab</div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:clamp(36px,4vw,56px);font-weight:700;line-height:1.1;" class="reveal d1">Einfach. Transparent. <em style="color:var(--blue);font-style:italic;">Zuverlässig.</em></h2>
+    </div>
+    <div class="proc-steps">
+      <div class="pstep"><div class="pcircle">1</div><div class="ptitle">Anfrage &amp; Beratung</div><div class="pdesc">Sie kontaktieren uns — wir melden uns innerhalb von 24 Stunden mit einem Beratungsgespräch.</div></div>
+      <div class="pstep"><div class="pcircle">2</div><div class="ptitle">Vor-Ort-Besichtigung</div><div class="pdesc">Unsere Experten begutachten die Situation und erstellen ein maßgeschneidertes Angebot.</div></div>
+      <div class="pstep"><div class="pcircle">3</div><div class="ptitle">Professionelle Montage</div><div class="pdesc">Saubere, termingerechte Installation durch erfahrene Fachkräfte — mit minimalem Aufwand für Sie.</div></div>
+      <div class="pstep"><div class="pcircle">4</div><div class="ptitle">Inbetriebnahme &amp; Service</div><div class="pdesc">Einweisung, Dokumentation und langfristige Betreuung durch unseren Kundendienst.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<div class="gal-section" id="projekte">
+  <div class="gal-in">
+    <div class="shead">
+      <div class="seye reveal">Referenzen</div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:clamp(36px,4vw,56px);font-weight:700;line-height:1.1;" class="reveal d1">Klimatechnik <em style="color:var(--blue);font-style:italic;">im Einsatz.</em></h2>
+      <p class="reveal d2" style="font-size:16px;font-weight:300;color:var(--muted);line-height:1.8;max-width:560px;margin:18px auto 0;">Einblicke in abgeschlossene Projekte aus privaten Haushalten und gewerblichen Objekten.</p>
+    </div>
+    <div class="mosaic reveal d1">
+      <div class="gitem"><img src="https://le-cdn.website-editor.net/5d03339e08e143f3a5b3bd7420c7e711/dms3rep/multi/opt/IMG-20251127-WA0031-640w.jpg" alt="" onerror="this.src='https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=600&q=80'"><div class="gov"><span class="gtag">Wohnbereich</span></div></div>
+      <div class="gitem"><img src="https://le-cdn.website-editor.net/5d03339e08e143f3a5b3bd7420c7e711/dms3rep/multi/opt/IMG-20251127-WA0050-640w.jpg" alt="" onerror="this.src='https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80'"><div class="gov"><span class="gtag">Montage</span></div></div>
+      <div class="gitem"><img src="https://le-cdn.website-editor.net/5d03339e08e143f3a5b3bd7420c7e711/dms3rep/multi/opt/galerie12-640w.jpeg" alt="" onerror="this.src='https://images.unsplash.com/photo-1621905251918-48416bd8575a?w=400&q=80'"><div class="gov"><span class="gtag">Außenanlage</span></div></div>
+      <div class="gitem"><img src="https://le-cdn.website-editor.net/5d03339e08e143f3a5b3bd7420c7e711/dms3rep/multi/opt/IMG-20251127-WA0040-640w.jpg" alt="" onerror="this.src='https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=400&q=80'"><div class="gov"><span class="gtag">Gewerbe</span></div></div>
+      <div class="gitem"><img src="https://le-cdn.website-editor.net/5d03339e08e143f3a5b3bd7420c7e711/dms3rep/multi/opt/galerie4-d214f257-640w.jpeg" alt="" onerror="this.src='https://images.unsplash.com/photo-1631545806609-ee1ee34a3e41?w=400&q=80'"><div class="gov"><span class="gtag">Innengerät</span></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<section class="ctasec" id="kontakt">
+  <div class="ctacard reveal">
+    <div class="cta-txt">
+      <div class="cta-sm">Bereit loszulegen?</div>
+      <h2 class="cta-h">Ihr perfektes Klima<br>beginnt mit einem<br><em>Gespräch.</em></h2>
+      <p class="cta-sub">Kostenlose Beratung · transparentes Angebot<br>schnelle Umsetzung — wir sind für Sie da.</p>
+    </div>
+    <div class="cta-acts">
+      <a href="tel:+49" class="bcta">
+        Jetzt anrufen
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81 19.79 19.79 0 01.18 2.18 2 2 0 012.18 0h3a2 2 0 012 1.72c.128.96.36 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.13 6.13l1.27-1.27a2 2 0 012.11-.45c.907.34 1.85.572 2.81.7A2 2 0 0122 16.92z"/></svg>
+      </a>
+      <a href="mailto:info@klima-voelker.de" class="bghost">✉️ E-Mail schreiben</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-grid">
+    <div>
+      <div class="flogo"><img src="images/logoweiß.png" alt="Klimatechnik Völker" onerror="this.style.display='none'"></div>
+      <p class="fabout">Ihr zuverlässiger Fachbetrieb für Klimaanlagen, Wärmepumpen und Heizungsanlagen in Düsseldorf, Köln und dem gesamten Rheinland.</p>
+    </div>
+    <div>
+      <div class="fh">Navigation</div>
+      <ul class="flinks"><li><a href="index.html">Start</a></li><li><a href="leistungen.html">Leistungen</a></li><li><a href="ablauf.html">Ablauf</a></li><li><a href="referenzen.html">Referenzen</a></li><li><a href="kontakt.html">Kontakt</a></li></ul>
+    </div>
+    <div>
+      <div class="fh">Leistungen</div>
+      <ul class="flinks"><li><a href="leistungen.html#klimaanlagen">Klimaanlagen</a></li><li><a href="leistungen.html#waermepumpen">Wärmepumpen</a></li><li><a href="leistungen.html#heizung">Heizung</a></li><li><a href="leistungen.html#sanierung">Energetische Sanierung</a></li><li><a href="leistungen.html#wartung">Wartung &amp; Service</a></li></ul>
+    </div>
+    <div>
+      <div class="fh">Kontakt</div>
+      <div class="fci-row"><span class="fci">📍</span><span>Düsseldorf &amp; Köln und Umgebung</span></div>
+      <div class="fci-row"><span class="fci">🌐</span><a href="http://www.klima-voelker.de" style="color:inherit;text-decoration:none">www.klima-voelker.de</a></div>
+      <div class="fci-row"><span class="fci">⏰</span><span>Mo – Fr &nbsp;7:00 – 18:00 Uhr</span></div>
+    </div>
+  </div>
+  <div class="fbot">
+    <span>© 2026 Klimatechnik Völker. Alle Rechte vorbehalten.</span>
+    <span>Impressum &nbsp;·&nbsp; Datenschutz</span>
+  </div>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+const navLogo = document.getElementById('nav-logo');
+window.addEventListener('scroll', () => {
+  const scrolled = scrollY > 60;
+  nav.classList.toggle('scrolled', scrolled);
+  navLogo.src = scrolled ? 'images/logo.png' : 'images/logoweiß.png';
+}, {passive:true});
+
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); }});
+}, {threshold:.12});
+
+document.querySelectorAll('.reveal,.scard,.pstep,.cki').forEach(el => io.observe(el));
+
+document.querySelectorAll('.scard').forEach((c,i) => c.style.transitionDelay = i*.08+'s');
+document.querySelectorAll('.pstep').forEach((s,i) => s.style.transitionDelay = i*.12+'s');
+
+window.addEventListener('scroll', () => {
+  const y = scrollY;
+  document.querySelector('.orb1').style.transform = `translate(${y*.04}px,${-y*.06}px)`;
+  document.querySelector('.orb2').style.transform = `translate(${-y*.03}px,${y*.05}px)`;
+}, {passive:true});
+
+// Hamburger Menu
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.getElementById('navLinks');
+const mobOverlay = document.getElementById('mobOverlay');
+if(hamburger){
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    navLinks.classList.toggle('open');
+    mobOverlay.classList.toggle('open');
+  });
+  mobOverlay.addEventListener('click', () => {
+    hamburger.classList.remove('active');
+    navLinks.classList.remove('open');
+    mobOverlay.classList.remove('open');
+  });
+}
+</script>
+</body>
+</html>
